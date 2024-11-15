@@ -1,4 +1,5 @@
 import React from 'react';
+import data from '../../../data/config.json';
 
 const GalleryItem = ({ src }) => (
   <img
@@ -17,15 +18,9 @@ export default function OurGallery() {
         Our Gallery
       </h2>
       <div className="grid grid-cols-3 gap-4">
-        <GalleryItem src="/images/dummy.png" />
-        <GalleryItem src="/images/dummy.png" />
-        <GalleryItem src="/images/dummy.png" />
-        <GalleryItem src="/images/dummy.png" />
-        <GalleryItem src="/images/dummy.png" />
-        <GalleryItem src="/images/dummy.png" />
-        <GalleryItem src="/images/dummy.png" />
-        <GalleryItem src="/images/dummy.png" />
-        <GalleryItem src="/images/dummy.png" />
+        {data.gallery.map((item, index) => (
+          <GalleryItem key={index} src={item} />
+        ))}
       </div>
     </div>
   );

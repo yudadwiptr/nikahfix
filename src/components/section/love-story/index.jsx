@@ -1,4 +1,5 @@
 import React from 'react';
+import data from '../../../data/config.json';
 
 const LoveItem = ({ imageUrl, title, duration, description }) => {
   return (
@@ -34,24 +35,15 @@ export default function LoveStory() {
         Our Love Story
       </h2>
       <div className="space-y-4">
-        <LoveItem
-          imageUrl="images/dummy.png"
-          title="Episode 1: How We Met Each Other that Time"
-          duration="26m 10s"
-          description="Aku dan Kamu pertama kali bertemu sebagai rekan kerja di kantor yang sama. Kegiatan-kegiatan kecil kantor yang sering melibatkan orang-orang didala..."
-        />
-        <LoveItem
-          imageUrl="images/dummy.png"
-          title="Episode 1: How We Met Each Other that Time"
-          duration="26m 10s"
-          description="Aku dan Kamu pertama kali bertemu sebagai rekan kerja di kantor yang sama. Kegiatan-kegiatan kecil kantor yang sering melibatkan orang-orang didala..."
-        />
-        <LoveItem
-          imageUrl="images/dummy.png"
-          title="Episode 1: How We Met Each Other that Time"
-          duration="26m 10s"
-          description="Aku dan Kamu pertama kali bertemu sebagai rekan kerja di kantor yang sama. Kegiatan-kegiatan kecil kantor yang sering melibatkan orang-orang didala..."
-        />
+        {data.love_story.map((item, index) => (
+          <LoveItem
+            key={index}
+            imageUrl={item.image_url}
+            title={item.title}
+            duration="26m 10s"
+            description={item.description}
+          />
+        ))}
       </div>
     </div>
   );

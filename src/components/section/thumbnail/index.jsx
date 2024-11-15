@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import DetailInfo from '../detail-info';
+import data from '../../../data/config.json';
 
 const TagItem = ({ title }) => {
   return (
@@ -41,7 +42,12 @@ export default function Thumbnail() {
     return <DetailInfo />;
   }
   return (
-    <div className="min-h-screen bg-thumbnail bg-contain bg-no-repeat flex flex-col justify-end mb-10">
+    <div
+      style={{
+        backgroundImage: `url(${data.thumbnail_image_url})`,
+      }}
+      className="min-h-screen bg-cover bg-center bg-no-repeat flex flex-col justify-end mb-10"
+    >
       <div className="pb-10  pt-2 bg-gradient-to-b from-transparent via-black to-black">
         <div className="px-5 mb-10 space-y-2">
           <img
@@ -52,7 +58,8 @@ export default function Thumbnail() {
           />
           <div>
             <h1 className="font-bold text-3xl leading-none">
-              Aku & Kamu: <br />
+              {data.pegantin.wanita.panggilan} & {data.pegantin.pria.panggilan}:{' '}
+              <br />
               Sebelum Hari H
             </h1>
           </div>
@@ -61,7 +68,7 @@ export default function Thumbnail() {
               <span className="bg-[#E50913] text-xs text-white rounded-md px-2 py-1">
                 Coming Soon
               </span>
-              <p className="text-sm">17 Agustus 1945</p>
+              <p className="text-sm">{data.tanggal_pernikahan}</p>
             </div>
           </div>
           <div>
