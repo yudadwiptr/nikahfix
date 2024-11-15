@@ -17,12 +17,14 @@ export default function DetailInfo() {
         />
         Your browser does not support the video tag.
       </video>
-      <TitleInfo />
-      <BreakingNews />
-      <Bridegroom />
-      <LoveStory />
-      <OurGallery />
-      <WishSection />
+      <div className="px-4">
+        <TitleInfo />
+        <BreakingNews />
+        <Bridegroom />
+        <LoveStory />
+        <OurGallery />
+        <WishSection />
+      </div>
       <Footer />
     </div>
   );

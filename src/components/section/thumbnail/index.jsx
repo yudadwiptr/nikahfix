@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import DetailInfo from '../detail-info';
 
 const TagItem = ({ title }) => {
@@ -12,11 +12,36 @@ const TagItem = ({ title }) => {
 export default function Thumbnail() {
   const [isOpenDetail, setIsOpenDetail] = React.useState(false);
 
+  useEffect(() => {
+    const scrollThreshold = 1; // minimum scroll distance in pixels
+
+    const handleScroll = () => {
+      if (window.scrollY > scrollThreshold) {
+        setIsOpenDetail(true);
+      }
+    };
+
+    const handleTouchMove = (event) => {
+      const touch = event.touches[0];
+      if (touch && touch.clientY < -scrollThreshold) {
+        setIsOpenDetail(true);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('touchmove', handleTouchMove);
+    };
+  }, []);
+
   if (isOpenDetail) {
     return <DetailInfo />;
   }
   return (
-    <div className="min-h-screen bg-thumbnail bg-contain bg-no-repeat flex flex-col justify-end">
+    <div className="min-h-screen bg-thumbnail bg-contain bg-no-repeat flex flex-col justify-end mb-10">
       <div className="pb-10  pt-2 bg-gradient-to-b from-transparent via-black to-black">
         <div className="px-5 mb-10 space-y-2">
           <img
@@ -49,27 +74,29 @@ export default function Thumbnail() {
           </div>
         </div>
         <div className="w-full text-center  ">
-          <svg
-            className="w-6 h-6 mx-auto mb-2 animate-bounce"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 14 8"
-          >
-            <path
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M13 7 7.674 1.3a.91.91 0 0 0-1.348 0L1 7"
-            ></path>
-          </svg>
           <button
             onClick={() => setIsOpenDetail(true)}
             className="uppercase w-full text-xl font-semibold"
           >
             See The Detail
           </button>
+          <div className="rotate-180">
+            <svg
+              className="w-6 h-6 mx-auto mb-2 animate-bounce "
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 14 8"
+            >
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M13 7 7.674 1.3a.91.91 0 0 0-1.348 0L1 7"
+              ></path>
+            </svg>
+          </div>
         </div>
       </div>
     </div>
