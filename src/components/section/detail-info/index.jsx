@@ -26,6 +26,7 @@ export default function DetailInfo() {
         <WishSection />
       </div>
       <Footer />
+      <audio autoPlay loop src="/audio/lagunya.mp4" className="hidden" />
     </div>
   );
 }
