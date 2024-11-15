@@ -17,7 +17,7 @@ export default function DetailInfo() {
         />
         Your browser does not support the video tag.
       </video>
-      <div className="px-4">
+      <div className="px-4 space-y-4">
         <TitleInfo />
         <BreakingNews />
         <Bridegroom />
