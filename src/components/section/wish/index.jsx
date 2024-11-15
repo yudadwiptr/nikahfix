@@ -11,9 +11,7 @@ const WishItem = () => (
       />
     </div>
     <div>
-      <p className="text-white text-md -mt-1">
-        Jessica Theresia Septiana Sijabat{' '}
-      </p>
+      <p className="text-white text-md -mt-1">Mark Zuckerberg</p>
       <p className="text-xs text-[#A3A1A1]">
         Happy wedding, semoga bersama sampai menua mas dan mbanyaa🥰🤍
       </p>
