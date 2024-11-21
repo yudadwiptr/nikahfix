@@ -52,8 +52,8 @@ export default function WishSection() {
     setLoading(true);
     setError(null);
 
-    // Insert data into Supabase table
-    const randomColor = colorList[Math.floor(Math.random() * colorList.length)];
+    // random color based data length
+    const randomColor = colorList[data.length % colorList.length];
     const newmessage = badwords.censor(message);
     const { error } = await supabase
       .from(import.meta.env.VITE_APP_TABLE_NAME) // Replace with your actual table name
