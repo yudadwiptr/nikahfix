@@ -34,6 +34,16 @@ export default function WishSection() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (name.length < 3) {
+      setError('Nama minimal 3 karakter!');
+      return;
+    }
+
+    if (message.length < 10) {
+      setError('Pesan minimal 10 karakter!');
+      return;
+    }
+
     if (badwords.flag(name)) {
       setError('Gabolah kata kasar!');
       return;
