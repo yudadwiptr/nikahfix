@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { forwardRef, useEffect, useRef, useState } from 'react';
 import supabase from '../../../lib/supabaseClient';
 import badwords from 'indonesian-badwords';
 
-const WishItem = ({ name, message, color }) => (
-  <div className="flex gap-2">
+const WishItem = forwardRef(({ name, message, color }, ref) => (
+  <div ref={ref} className="flex gap-2">
     <div>
       <img
         width={24}
@@ -20,11 +20,13 @@ const WishItem = ({ name, message, color }) => (
       <p className="text-xs text-[#A3A1A1]">{message}</p>
     </div>
   </div>
-);
+));
 
 const colorList = ['red', '#ffdb58', '#6bc76b', '#48cae4'];
 
 export default function WishSection() {
+  const lastChildRef = useRef(null);
+
   const [data, setData] = useState([]);
   const [name, setName] = useState('');
   const [message, setMessage] = useState('');
@@ -66,6 +68,8 @@ export default function WishSection() {
     if (error) {
       setError(error.message);
     } else {
+      //scroll to .wish-container last child
+
       fetchData();
       setName('');
       setMessage('');
@@ -79,6 +83,13 @@ export default function WishSection() {
 
     if (error) console.error('Error fetching data: ', error);
     else setData(data);
+    setTimeout(scrollToLastChild, 500);
+  };
+
+  const scrollToLastChild = () => {
+    if (lastChildRef.current) {
+      lastChildRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   useEffect(() => {
@@ -90,13 +101,14 @@ export default function WishSection() {
       <h2 className="text-lg leading-5 text-white font-bold mb-5">
         Wish for the couple
       </h2>
-      <div className="max-h-[20rem] overflow-auto space-y-4">
+      <div className="max-h-[20rem] overflow-auto space-y-4 wish-container">
         {data.map((item, index) => (
           <WishItem
             name={item.name}
             message={item.message}
             color={item.color}
             key={index}
+            ref={index === data.length - 1 ? lastChildRef : null}
           />
         ))}
       </div>
