@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import ReCAPTCHA from 'react-google-recaptcha';
 import supabase from '../../../lib/supabaseClient';
+import badwords from 'indonesian-badwords';
 
 const WishItem = ({ name, message, color }) => (
   <div className="flex gap-2">
@@ -30,29 +30,33 @@ export default function WishSection() {
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [successMessage, setSuccessMessage] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (badwords.flag(name)) {
+      setError('Gabolah kata kasar!');
+      return;
+    }
+
     setLoading(true);
     setError(null);
 
     // Insert data into Supabase table
     const randomColor = colorList[Math.floor(Math.random() * colorList.length)];
+    const newmessage = badwords.censor(message);
     const { error } = await supabase
       .from(import.meta.env.VITE_APP_TABLE_NAME) // Replace with your actual table name
       .insert([
-        { name, message, color: randomColor }, // Assuming your table has a "name" column
+        { name, message: newmessage, color: randomColor }, // Assuming your table has a "name" column
       ]);
 
     setLoading(false);
 
     if (error) {
       setError(error.message);
-      setSuccessMessage('');
     } else {
       fetchData();
-      setSuccessMessage('Data inserted successfully!');
       setName('');
       setMessage('');
     }
