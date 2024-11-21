@@ -97,6 +97,7 @@ export default function WishSection() {
           <label>Name</label>
           <input
             required
+            minLength={3}
             value={name}
             onChange={(e) => setName(e.target.value)}
             className="w-full focus:outline-none px-2 py-1 text-black"
@@ -106,6 +107,7 @@ export default function WishSection() {
           <label>Message</label>
           <textarea
             required
+            minLength={10}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             className="w-full focus:outline-none px-2 py-1 text-black"
