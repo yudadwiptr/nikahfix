@@ -20,11 +20,11 @@ Berikut adalah langkah-langkah untuk menginstal proyek ini di lingkungan lokal A
 
 1. **Clone Repository**:
 
-   `git clone https://github.com/username/nIKAHFIX.git`
+   `git clone https://github.com/arifintajul4/nikahfix.git`
 
 2. **Masuk ke Direktori Proyek**:
 
-   `cd nIKAHFIX`
+   `cd nikahfix`
 
 3. **Instal Dependensi**:
    Pastikan Anda sudah menginstal Node.js. Jalankan perintah berikut untuk menginstal semua dependensi yang diperlukan.
