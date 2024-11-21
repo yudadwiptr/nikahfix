@@ -41,8 +41,6 @@ Berikut adalah langkah-langkah untuk menginstal proyek ini di lingkungan lokal A
 
    `http://localhost:5173`
 
-Berikut adalah dokumentasi yang diperbaiki untuk integrasi **Supabase** pada proyek NIKAHFIX, lengkap dengan contoh kode yang sesuai untuk mengelola data menggunakan Supabase dalam aplikasi.
-
 ---
 
 # Integrasi Supabase di NIKAHFIX
