@@ -71,6 +71,7 @@ export default function WishSection() {
       //scroll to .wish-container last child
 
       fetchData();
+      setTimeout(scrollToLastChild, 500);
       setName('');
       setMessage('');
     }
@@ -83,7 +84,6 @@ export default function WishSection() {
 
     if (error) console.error('Error fetching data: ', error);
     else setData(data);
-    setTimeout(scrollToLastChild, 500);
   };
 
   const scrollToLastChild = () => {
