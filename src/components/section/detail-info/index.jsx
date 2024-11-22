@@ -23,7 +23,9 @@ export default function DetailInfo() {
         {data.show_menu.gallery && (
           <OurGallery gallery={data.gallery} show_menu={data.show_menu} />
         )}
-        {data.show_menu.wish && <WishSection />}
+        {data.show_menu.wish && import.meta.env.VITE_APP_TABLE_NAME ? (
+          <WishSection />
+        ) : null}
       </div>
       <Footer />
       <audio autoPlay loop src={data.audio_url} className="hidden" />
