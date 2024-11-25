@@ -1,6 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function UserWatch({ onClick }) {
+  //get params from url
+  const [to, setTo] = useState('Guest');
+
+  useEffect(() => {
+    if (window) {
+      const url = new URL(window.location.href);
+      const to = url.searchParams.get('to');
+      setTo(to ? to : 'Guest');
+    }
+  }, []);
+
   return (
     <div className="py-10 text-center space-y-28">
       <img
@@ -21,7 +32,7 @@ export default function UserWatch({ onClick }) {
             alt="nikahfix"
           />
           <p className="text-xl mt-2 group-hover:scale-125 group-hover:pt-5">
-            Guest
+            {to}
           </p>
         </div>
       </div>
