@@ -4,7 +4,8 @@
 
 ## Demo
 
-Anda dapat melihat demo langsung dari NIKAHFIX di sini: [NIKAHFIX - Demo](https://nikahfix-v01.vercel.app/)
+Anda dapat melihat demo langsung dari NIKAHFIX di sini: [NIKAHFIX - Demo](https://nikahfix-v01.vercel.app/).
+Jika anda memiliki tujuan spesifik undangannya, bisa dibuat link seperti berikut [https://nikahfix-v01.vercel.app/?to=tajul+dan+gorbon](https://nikahfix-v01.vercel.app/?to=tajul+dan+gorbon)
 
 ## Teknologi yang Digunakan
 
