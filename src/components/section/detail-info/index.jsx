@@ -7,6 +7,7 @@ import OurGallery from '../our-gallery';
 import WishSection from '../wish';
 import Footer from '../footer';
 import data from '../../../data/config.json';
+import SongButton from '../../ui/song-button';
 
 export default function DetailInfo() {
   return (
@@ -28,7 +29,7 @@ export default function DetailInfo() {
         ) : null}
       </div>
       <Footer />
-      <audio autoPlay loop src={data.audio_url} className="hidden" />
+      <SongButton />
     </div>
   );
 }
