@@ -3,6 +3,20 @@ import data from '../../../data/config.json';
 
 export default function SongButton() {
   const [isPlaying, setIsPlaying] = React.useState(true);
+  //stop the song when browser is closed or minimized
+  React.useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        setIsPlaying(false);
+      } else {
+        setIsPlaying(true);
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, []);
   return (
     // component to play and stop the song
     <div className="fixed bottom-5 right-5 ">
