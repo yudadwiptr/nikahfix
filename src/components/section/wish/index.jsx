@@ -11,6 +11,8 @@ const WishItem = forwardRef(({ name, message, color }, ref) => (
         src="images/face.png"
         style={{
           backgroundColor: color,
+          minWidth: 24,
+          minHeight: 24,
         }}
         className=" rounded-sm"
       />

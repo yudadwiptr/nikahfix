@@ -1,52 +1,65 @@
 {
   "pegantin": {
     "pria": {
-      "foto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRL5m2gr2lMb1huhMFwIR41jrDU5ZOxKydgEw&s",
-      "panggilan": "Naruto",
-      "nama": "Uzumaki Naruto",
-      "bapak": "Minato",
-      "ibu": "Kushina"
+      "foto": "https://slametandfatma.wedding/galeri/slamett.jpeg",
+      "panggilan": "Slamet",
+      "nama": "Slamet Riyadi",
+      "bapak": "Arpa",
+      "ibu": "Hasiri"
     },
     "wanita": {
-      "foto": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWSd9ntnjxJieblDHXudyFyNaw3jYmHFuhaQ&s",
-      "panggilan": "Hinata",
-      "nama": "Hyuga Hinata",
-      "bapak": "Hiashi",
-      "ibu": "??"
+      "foto": "https://slametandfatma.wedding/galeri/fatmaa.jpeg",
+      "panggilan": "Fatma",
+      "nama": "Fatmawati",
+      "bapak": "Suyadi",
+      "ibu": "Parjinem"
     }
   },
-  "audio_url": "/audio/lagunya.mp3",
-  "tanggal_pernikahan": "2020-12-12",
-  "thumbnail_image_url": "https://i.pinimg.com/736x/3d/19/f6/3d19f61536c6d3c0f7c4f0a621652bef.jpg",
-  "url_video": "/video/videonya.mp4",
-  "intro": "Setelah Aku dan Kamu dipertemukan dalam situasi yang tepat, di mana keduanya telah siap untuk memulai hubungan bersama, tibalah mereka di awal perjalanan baru menuju pernikahan.",
-  "breaking_news_img": "https://i.ytimg.com/vi/IAiZbwBW8XI/maxresdefault.jpg",
+  "audio_url": "https://slametandfatma.wedding/audio/myaudio.mp3",
+  "tanggal_pernikahan": "2025-04-13",
+  "thumbnail_image_url": "https://slametandfatma.wedding/galeri/nikahfix.jpg",
+  "url_video": "https://slametandfatma.wedding/video/myvideo.mp4",
+  "intro": "Setelah Slamet dan Fatma dipertemukan dalam situasi yang tepat, di mana keduanya telah siap untuk memulai hubungan bersama, tibalah mereka di awal perjalanan baru menuju pernikahan.",
+  "breaking_news_img": "https://slametandfatma.wedding/galeri/news.jpg",
   "breaking_news_content": "<p>Halo! Karena kalian adalah orang penting yang mengisi hari-hari kami, kami ingin informasikan bahwa kami akan segera menikah! &lt;3 </p><p className=\"mt-4\"> Tapi sebelumnya, kami mohon maaf kepada teman dan kerabat semua karena tidak bisa mengundang kalian hadir di hari bahagia kami, dikarenakan pernikahan kami bersifat intimate wedding yang dilaksanakan di Bekasi dan hanya dihadiri oleh keluarga dan orang terdekat.</p><p className=\"mt-4\">Walaupun begitu, kami harapkan sebaik-baiknya doa untuk kelancaran pernikahan dan hari-hari bahagia setelahnya.</p><p className=\"mt-4\">Dengan penuh cinta,</p><p>The bride and groom &lt;3</p>",
   "love_story": [
     {
-      "image_url": "https://i.ytimg.com/vi/IAiZbwBW8XI/maxresdefault.jpg",
+      "image_url": "https://slametandfatma.wedding/galeri/story1.jpeg",
       "title": "Episode 1: How We Met Each Other that Time",
-      "description": "Ketika pertama kali bertemu, kami tidak tahu bahwa kami akan menjadi pasangan hidup. Namun, Tuhan telah menyiapkan jalan kami untuk bertemu dan saling mengenal satu sama lain."
+      "description": "Slamet dan Fatma pertama kali bertemu pada tahun 2015 sebagai teman satu regu saat masa orientasi siswa Sekolah Menengah Kejuruan."
     },
     {
-      "image_url": "https://i.ytimg.com/vi/IAiZbwBW8XI/maxresdefault.jpg",
-      "title": "Episode 2: The First Date",
-      "description": "Setelah beberapa kali bertemu, akhirnya kami memutuskan untuk menghabiskan waktu bersama. Kami pergi ke tempat yang indah dan berbagi cerita tentang diri kami masing-masing."
+      "image_url": "https://slametandfatma.wedding/galeri/story2.jpeg",
+      "title": "Episode 2: A Love That Grows With Time",
+      "description": "Selama 1 tahun berteman, akhirnya mereka menyadari bahwa perasaan yang mereka miliki satu sama lain bukan hanya sebatas teman sekolah belaka, melainkan..."
+    },
+    {
+      "image_url": "https://slametandfatma.wedding/galeri/story3.jpeg",
+      "title": "Episode 3: Choose to Spend Life Together",
+      "description": "Setelah 8 tahun lebih menjalin hubungan, pada Desember 2024 Slamet menyampaikan niatnya untuk melamar Fatma."
+    },
+    {
+      "image_url": "https://slametandfatma.wedding/galeri/story4.jpeg",
+      "title": "[Coming Soon] Final Episode: The Beginning of Forever",
+      "description": "Ketika hari H itu datang, Slamet dan Fatma akan berbagi kisah haru mereka di sini. Sampai bertemu lagi di cerita bahagia selanjutnya!"
     }
   ],
   "gallery": [
-    "https://i.ytimg.com/vi/IAiZbwBW8XI/maxresdefault.jpg",
-    "https://i.ytimg.com/vi/IAiZbwBW8XI/maxresdefault.jpg",
-    "https://i.ytimg.com/vi/IAiZbwBW8XI/maxresdefault.jpg",
-    "https://i.ytimg.com/vi/IAiZbwBW8XI/maxresdefault.jpg",
-    "https://i.ytimg.com/vi/IAiZbwBW8XI/maxresdefault.jpg",
-    "https://i.ytimg.com/vi/IAiZbwBW8XI/maxresdefault.jpg"
+    "https://slametandfatma.wedding/galeri/1.jpg",
+    "https://slametandfatma.wedding/galeri/2.jpg",
+    "https://slametandfatma.wedding/galeri/3.jpg",
+    "https://slametandfatma.wedding/galeri/4.jpg",
+    "https://slametandfatma.wedding/galeri/5.jpg",
+    "https://slametandfatma.wedding/galeri/6.jpg",
+    "https://slametandfatma.wedding/galeri/7.jpg",
+    "https://slametandfatma.wedding/galeri/8.jpg",
+    "https://slametandfatma.wedding/galeri/9.jpg"
   ],
   "show_menu": {
     "breaking_news": true,
     "bride_and_groom": true,
     "love_story": true,
     "gallery": true,
-    "wish": false
+    "wish": true
   }
 }
