@@ -40,7 +40,7 @@ export default function LoveStory() {
             key={index}
             imageUrl={item.image_url}
             title={item.title}
-            duration="26m 10s"
+            duration="29m 11s "
             description={item.description}
           />
         ))}

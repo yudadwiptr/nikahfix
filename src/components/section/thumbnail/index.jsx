@@ -60,7 +60,7 @@ export default function Thumbnail() {
             <h1 className="font-bold text-3xl leading-none">
               {data.pegantin.wanita.panggilan} & {data.pegantin.pria.panggilan}:{' '}
               <br />
-              Sebelum Hari H
+              Countdown to Forever
             </h1>
           </div>
           <div>
@@ -83,9 +83,10 @@ export default function Thumbnail() {
         <div className="w-full text-center  ">
           <button
             onClick={() => setIsOpenDetail(true)}
-            className="uppercase w-full text-xl font-semibold"
+            className="uppercase w-full text-xl font-semibold transition-all duration-300 hover:scale-110 hover:text-[#E50913] relative group"
           >
-            See The Detail
+            <span className="relative z-10">See The Detail</span>
+            <div className="absolute inset-0 bg-white/10 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-lg"></div>
           </button>
           <div className="rotate-180">
             <svg

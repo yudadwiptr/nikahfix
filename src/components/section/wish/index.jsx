@@ -3,89 +3,112 @@ import supabase from '../../../lib/supabaseClient';
 import badwords from 'indonesian-badwords';
 
 const WishItem = forwardRef(({ name, message, color }, ref) => (
-  <div ref={ref} className="flex gap-2">
-    <div>
-      <img
-        width={24}
-        height={24}
-        src="images/face.png"
-        style={{
-          backgroundColor: color,
-          minWidth: 24,
-          minHeight: 24,
-        }}
-        className=" rounded-sm"
-      />
-    </div>
-    <div>
-      <p className="text-white text-md -mt-1">{name}</p>
-      <p className="text-xs text-[#A3A1A1]">{message}</p>
+  <div ref={ref} className="bg-[#181818] p-4 rounded-lg transform transition-all duration-300 hover:scale-[1.02] hover:bg-[#222222]">
+    <div className="flex items-start gap-3">
+      <div className="flex-shrink-0">
+        <div 
+          className="w-10 h-10 rounded-full flex items-center justify-center text-lg font-semibold"
+          style={{
+            backgroundColor: color,
+          }}
+        >
+          {name.charAt(0).toUpperCase()}
+        </div>
+      </div>
+      <div className="flex-grow">
+        <div className="flex items-center gap-2">
+          <h3 className="text-white font-medium">{name}</h3>
+          <span className="text-xs text-[#E50913] bg-[#E50913]/10 px-2 py-0.5 rounded-full">Verified Guest</span>
+        </div>
+        <p className="text-[#A3A1A1] mt-2 leading-relaxed">{message}</p>
+      </div>
     </div>
   </div>
 ));
 
-const colorList = ['red', '#ffdb58', '#6bc76b', '#48cae4'];
+const colorList = ['#E50913', '#FF9A00', '#00C853', '#2196F3'];
+
+const InputField = ({ label, error, ...props }) => (
+  <div className="space-y-2">
+    <label className="block text-sm text-[#A3A1A1]">{label}</label>
+    <div className="relative">
+      <input
+        {...props}
+        className="w-full bg-[#333333] text-white px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E50913] transition-all duration-300"
+      />
+    </div>
+    {error && <p className="text-[#E50913] text-xs mt-1">{error}</p>}
+  </div>
+);
 
 export default function WishSection() {
   const lastChildRef = useRef(null);
-
   const [data, setData] = useState([]);
   const [name, setName] = useState('');
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [formErrors, setFormErrors] = useState({});
+
+  const validateForm = () => {
+    const errors = {};
+    if (name.length < 3) {
+      errors.name = 'Name must be at least 3 characters';
+    }
+    if (message.length < 10) {
+      errors.message = 'Message must be at least 10 characters';
+    }
+    if (badwords.flag(name)) {
+      errors.name = 'Please use appropriate language';
+    }
+    if (badwords.flag(message)) {
+      errors.message = 'Please use appropriate language';
+    }
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (name.length < 3) {
-      setError('Nama minimal 3 karakter!');
-      return;
-    }
-
-    if (message.length < 10) {
-      setError('Pesan minimal 10 karakter!');
-      return;
-    }
-
-    if (badwords.flag(name)) {
-      setError('Gabolah kata kasar!');
-      return;
-    }
+    if (!validateForm()) return;
 
     setLoading(true);
     setError(null);
 
-    // random color based data length
     const randomColor = colorList[data.length % colorList.length];
     const newmessage = badwords.censor(message);
-    const { error } = await supabase
-      .from(import.meta.env.VITE_APP_TABLE_NAME) // Replace with your actual table name
-      .insert([
-        { name, message: newmessage, color: randomColor }, // Assuming your table has a "name" column
-      ]);
+    
+    try {
+      const { error: supabaseError } = await supabase
+        .from(import.meta.env.VITE_APP_TABLE_NAME)
+        .insert([{ name, message: newmessage, color: randomColor }]);
 
-    setLoading(false);
+      if (supabaseError) throw supabaseError;
 
-    if (error) {
-      setError(error.message);
-    } else {
-      //scroll to .wish-container last child
-
-      fetchData();
+      await fetchData();
       setTimeout(scrollToLastChild, 500);
       setName('');
       setMessage('');
+      setFormErrors({});
+    } catch (err) {
+      setError('Failed to send message. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
   const fetchData = async () => {
-    const { data, error } = await supabase
-      .from(import.meta.env.VITE_APP_TABLE_NAME) // Replace 'your_table' with the actual table name
-      .select('name, message, color');
+    try {
+      const { data, error } = await supabase
+        .from(import.meta.env.VITE_APP_TABLE_NAME)
+        .select('name, message, color')
+        .order('created_at', { ascending: false });
 
-    if (error) console.error('Error fetching data: ', error);
-    else setData(data);
+      if (error) throw error;
+      setData(data);
+    } catch (err) {
+      console.error('Error fetching wishes:', err);
+    }
   };
 
   const scrollToLastChild = () => {
@@ -99,53 +122,77 @@ export default function WishSection() {
   }, []);
 
   return (
-    <div>
-      <h2 className="text-lg leading-5 text-white font-bold mb-5">
-        Wish for the couple
-      </h2>
-      <div className="max-h-[20rem] overflow-auto space-y-4 wish-container">
-        {data.map((item, index) => (
-          <WishItem
-            name={item.name}
-            message={item.message}
-            color={item.color}
-            key={index}
-            ref={index === data.length - 1 ? lastChildRef : null}
-          />
-        ))}
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h2 className="text-lg leading-5 text-white font-bold">
+          Wish for the couple
+        </h2>
+        <span className="text-sm text-[#A3A1A1]">{data.length} wishes</span>
       </div>
-      <form onSubmit={handleSubmit} className="mt-4 space-y-4">
-        {error && <div className="text-red-500 text-sm">{error}</div>}
 
-        <div className="space-y-1">
-          <label>Name</label>
-          <input
-            required
-            minLength={3}
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="w-full focus:outline-none px-2 py-1 text-black"
-          />
-        </div>
-        <div className="space-y-1">
-          <label>Message</label>
+      <form onSubmit={handleSubmit} className="bg-[#181818] p-4 rounded-lg space-y-4 mb-6">
+        {error && (
+          <div className="bg-[#E50913]/10 border border-[#E50913] text-[#E50913] px-4 py-2 rounded-lg">
+            {error}
+          </div>
+        )}
+
+        <InputField
+          label="Your Name"
+          required
+          minLength={3}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          error={formErrors.name}
+          placeholder="Enter your name"
+        />
+
+        <div className="space-y-2">
+          <label className="block text-sm text-[#A3A1A1]">Your Message</label>
           <textarea
             required
             minLength={10}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            className="w-full focus:outline-none px-2 py-1 text-black"
+            className="w-full bg-[#333333] text-white px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#E50913] transition-all duration-300 resize-none"
             rows={4}
-          ></textarea>
+            placeholder="Write your wish for the couple..."
+          />
+          {formErrors.message && (
+            <p className="text-[#E50913] text-xs mt-1">{formErrors.message}</p>
+          )}
         </div>
+
         <button
           type="submit"
           disabled={loading}
-          className="w-full py-2 bg-white text-black rounded-sm"
+          className="w-full bg-[#E50913] text-white py-3 rounded-lg font-medium transform transition-all duration-300 hover:bg-[#cc0812] focus:outline-none focus:ring-2 focus:ring-[#E50913] focus:ring-offset-2 focus:ring-offset-[#181818] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
         >
-          Send
+          {loading ? (
+            <>
+              <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+              </svg>
+              Sending...
+            </>
+          ) : (
+            'Send Wish'
+          )}
         </button>
       </form>
+
+      <div className="space-y-4">
+        {data.map((item, index) => (
+          <WishItem
+            key={index}
+            name={item.name}
+            message={item.message}
+            color={item.color}
+            ref={index === data.length - 1 ? lastChildRef : null}
+          />
+        ))}
+      </div>
     </div>
   );
 }

@@ -1,59 +1,79 @@
 {
+  "locations": {
+    "martumpol": {
+      "title": "Martumpol Ceremony",
+      "place": "HKBP Sako Kenten Palembang",
+      "time": "01 November 2025 - 10:00",
+      "mapsUrl": "https://maps.app.goo.gl/oUL2Pk9Ec6g8dfAU8?g_st=ic"
+    },
+    "holyMatrimony": {
+      "title": "Holy Matrimony",
+      "place": "HKBP Tangerang Kota",
+      "time": "08:00",
+      "mapsUrl": "https://maps.app.goo.gl/eP2Zq7xp8tMwNfSk9?g_st=ic"
+    },
+    "reception": {
+      "title": "Wedding Reception",
+      "place": "Edelweiss Wedding Hall, Sport Club Karawaci",
+      "time": "11:00",
+      "mapsUrl": "https://maps.app.goo.gl/GrZs2Lj3Jpn38rEV8?g_st=ic"
+    }
+  },
   "pegantin": {
     "pria": {
-      "foto": "https://slametandfatma.wedding/galeri/slamett.jpeg",
-      "panggilan": "Slamet",
-      "nama": "Slamet Riyadi",
-      "bapak": "Arpa",
-      "ibu": "Hasiri"
+      "foto": "/images/groom.jpg",
+      "panggilan": "Piter",
+      "nama": "Irianto Petrus Binsardo Simorangkir, ST., MBA.",
+      "bapak": "Ir. Tumpal Marojahan Simorangkir, MM (+)",
+      "ibu": "dr. Ratna Nurlely br Silaen, MKK"
     },
     "wanita": {
-      "foto": "https://slametandfatma.wedding/galeri/fatmaa.jpeg",
-      "panggilan": "Fatma",
-      "nama": "Fatmawati",
-      "bapak": "Suyadi",
-      "ibu": "Parjinem"
+      "foto": "/images/bride.jpg",
+      "panggilan": "Dewi",
+      "nama": "Dewi Putri Siagian, S.Kom., M.T.I., S.Ak.",
+      "bapak": "Willer Siagian, S.H., M.Si. (+)",
+      "ibu": "Delfi Panjaitan, S.E., M.Si., Ak., BKP., CA., CPA., CLI., ASEAN CPA., CFI"
     }
   },
   "audio_url": "https://slametandfatma.wedding/audio/myaudio.mp3",
-  "tanggal_pernikahan": "20 April 2025",
-  "thumbnail_image_url": "https://slametandfatma.wedding/galeri/nikahfix.jpg",
-  "url_video": "https://slametandfatma.wedding/video/myvideo.mp4",
-  "intro": "Setelah Slamet dan Fatma dipertemukan dalam situasi yang tepat, di mana keduanya telah siap untuk memulai hubungan bersama, tibalah mereka di awal perjalanan baru menuju pernikahan.",
-  "breaking_news_img": "https://slametandfatma.wedding/galeri/news.jpg",
-  "breaking_news_content": "<p>Halo! Karena kalian adalah orang penting yang mengisi hari-hari kami, kami ingin informasikan bahwa kami akan segera menikah! &lt;3 </p><p className=\"mt-4\"> Tapi sebelumnya, kami mohon maaf kepada teman dan kerabat semua karena tidak bisa mengundang kalian hadir di hari bahagia kami, dikarenakan pernikahan kami bersifat intimate wedding yang dilaksanakan di Bekasi dan hanya dihadiri oleh keluarga dan orang terdekat.</p><p className=\"mt-4\">Walaupun begitu, kami harapkan sebaik-baiknya doa untuk kelancaran pernikahan dan hari-hari bahagia setelahnya.</p><p className=\"mt-4\">Dengan penuh cinta,</p><p>The bride and groom &lt;3</p>",
+  "tanggal_pernikahan": "29 Nov 2025",
+  "thumbnail_image_url": "/images/foto_1.jpeg",
+  "url_video": "/images/VIDEO.png",
+  "intro": "Setelah Piter dan Dewi dipertemukan dalam situasi yang tepat, di mana keduanya telah siap untuk memulai hubungan bersama, tibalah mereka di awal perjalanan baru menuju pernikahan.",
+  "breaking_news_img": "/images/gl_2.jpg",
+  "breaking_news_content": "<p>Halo, teman-teman dan keluarga tersayang! Kami dengan penuh sukacita ingin berbagi kabar bahagia bahwa kami akan segera menikah!</p><p className=\"mt-4\">Momen ini adalah langkah baru dalam perjalanan hidup kami, dan kami merasa sangat bersyukur bisa merayakannya bersama orang-orang yang kami cintai.</p><p className=\"mt-4\">Kami ingin mengundang kalian semua untuk hadir dan menjadi bagian dari hari istimewa kami, untuk berbagi doa, tawa, dan kebahagiaan bersama.</p><p className=\"mt-4\">Dengan penuh cinta,</p><p>Dewi & Piter 🤍",
   "love_story": [
     {
-      "image_url": "https://slametandfatma.wedding/galeri/story1.jpeg",
-      "title": "Episode 1: How We Met Each Other that Time",
-      "description": "Slamet dan Fatma pertama kali bertemu pada tahun 2015 sebagai teman satu regu saat masa orientasi siswa Sekolah Menengah Kejuruan."
+      "image_url": "/images/foto5.jpg",
+      "title": "Episode 1: 9 December 2023",
+      "description": "It all started with a simple yet meaningful introduction—we were introduced by a mutual friend who somehow saw something in us that we hadn’t yet realized. From there, we became friends online, exchanging quick hellos on social media."
     },
     {
-      "image_url": "https://slametandfatma.wedding/galeri/story2.jpg",
-      "title": "Episode 2: A Love That Grows With Time",
-      "description": "Selama 1 tahun berteman, akhirnya mereka menyadari bahwa perasaan yang mereka miliki satu sama lain bukan hanya sebatas teman sekolah belaka, melainkan..."
+      "image_url": "/images/foto_6.jpg",
+      "title": "Episode 2: 19 May 2024",
+      "description": "Until one day, fate brought us together at a friend’s wedding. That meeting marked the beginning of a new story. We started spending more time together—sharing stories, laughter, and encouragement amid our busy days."
     },
     {
-      "image_url": "https://slametandfatma.wedding/galeri/story3.jpeg",
-      "title": "Episode 3: Choose to Spend Life Together",
-      "description": "Setelah 8 tahun lebih menjalin hubungan, pada Desember 2024 Slamet menyampaikan niatnya untuk melamar Fatma."
+      "image_url": "/images/foto_7.jpg",
+      "title": "Episode 3: 08 October 2024",
+      "description": "Gradually, we realized that our togetherness was no coincidence. October 8th, 2024 became a special date—the day we chose to begin our journey as a couple."
     },
     {
-      "image_url": "https://slametandfatma.wedding/galeri/story4.jpeg",
-      "title": "[Coming Soon] Final Episode: The Beginning of Forever",
-      "description": "Ketika hari H itu datang, Slamet dan Fatma akan berbagi kisah haru mereka di sini. Sampai bertemu lagi di cerita bahagia selanjutnya!"
+      "image_url": "/images/gl_1.jpg",
+      "title": "Final Episode: The Beginning of Forever",
+      "description": "Our journey hasn’t always been smooth, but each challenge has made us stronger, more mature, and more certain that we want to grow old together. Now we’re ready for the next chapter: exchanging vows before God and the people we love."
     }
   ],
   "gallery": [
-    "https://slametandfatma.wedding/galeri/1.jpg",
-    "https://slametandfatma.wedding/galeri/2.jpg",
-    "https://slametandfatma.wedding/galeri/3.jpg",
-    "https://slametandfatma.wedding/galeri/4.jpg",
-    "https://slametandfatma.wedding/galeri/5.jpg",
-    "https://slametandfatma.wedding/galeri/6.jpg",
-    "https://slametandfatma.wedding/galeri/7.jpg",
-    "https://slametandfatma.wedding/galeri/8.jpg",
-    "https://slametandfatma.wedding/galeri/9.jpg"
+    "/images/foto_1.jpeg",
+    "/images/foto_2.jpeg",
+    "/images/foto_3.jpeg",
+    "/images/foto_7.jpg",
+    "/images/foto_4.jpeg",
+    "/images/foto_6.jpg",
+    "/images/foto_8.jpeg",
+    "/images/slide_1.jpg",
+    "/images/header.jpg"
   ],
   "show_menu": {
     "breaking_news": true,

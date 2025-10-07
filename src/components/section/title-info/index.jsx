@@ -12,7 +12,7 @@ export default function TitleInfo() {
       </div>
       <h2 className="text-lg leading-5 text-white font-bold">
         {data.pegantin.wanita.panggilan} &amp; {data.pegantin.pria.panggilan}:
-        Sebelum Hari H
+        Countdown to Forever
       </h2>
       <div className="flex gap-1 items-center">
         <span className="text-green-500 mr-2">100% match</span>
@@ -36,10 +36,6 @@ export default function TitleInfo() {
       <div className="pt-2">
         <p className="text-white text-sm leading-[1.15rem] mb-2">
           {data.intro}
-        </p>
-        <p className="text-[#A3A1A1] text-[10px] leading-[1rem]">
-          "Segala sesuatu Kami ciptakan berpasang-pasangan agar kamu mengingat
-          (kebesaran Allah)" (Q.S Az-Zariyah: 49)
         </p>
       </div>
     </div>
