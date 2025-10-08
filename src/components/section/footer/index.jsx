@@ -4,13 +4,13 @@ export default function Footer() {
   return (
     <div>
       <div className="mt-8 flex flex-col  items-center">
-        <p className="text-white text-sm">
-          Thank you for checking up all the things up there!
+        <p className="text-white text-base">
+          We appreciate your time and wishes.
         </p>
-        <p className="text-white text-sm">Can’t wait to see u again! &lt;3</p>
+        <p className="text-white text-base">Can't wait to see you again at our celebration! &lt;3</p>
       </div>
       <div className="mt-8 flex flex-col items-center">
-        <p className="text-[10px] text-[#A3A1A1] mb-6">
+        <p className="text-[15px] text-[#A3A1A1] mb-6">
           E-Invitation made by{' '}
           <a
             className="underline"

@@ -22,7 +22,6 @@ export default function TitleInfo() {
         <span className="text-white mr-2">
           {data.tanggal_pernikahan.split('-')[0]}
         </span>
-        <span className="text-white mr-2">1h 26m</span>
         <span>
           <img src="/images/4k-icon.png" width={16} height={16} alt="4k" />
         </span>
@@ -34,7 +33,7 @@ export default function TitleInfo() {
         Coming soon on Saturday, {data.tanggal_pernikahan}
       </div>
       <div className="pt-2">
-        <p className="text-white text-sm leading-[1.15rem] mb-2">
+        <p className="text-white text-sm leading-[1.15rem] mb-2" style={{ textAlign: 'justify' }}>
           {data.intro}
         </p>
       </div>

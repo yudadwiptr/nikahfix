@@ -23,7 +23,7 @@ const LoveItem = ({ imageUrl, title, duration, description }) => {
           </div>
         </div>
       </div>
-      <p className="text-[#A3A1A1] text-xs mt-2">{description}</p>
+  <p className="text-[#A3A1A1] text-xs mt-2" style={{ textAlign: 'justify' }}>{description}</p>
     </div>
   );
 };

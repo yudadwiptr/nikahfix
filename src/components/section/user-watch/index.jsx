@@ -28,6 +28,14 @@ export default function UserWatch({ onClick }) {
         audioRef.current.play().catch(() => {});
       } catch (err) {}
     }
+    // On mobile, also trigger global audio (SongButton)
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    if (isMobile) {
+      const globalAudio = document.querySelector('audio');
+      if (globalAudio) {
+        globalAudio.play().catch(() => {});
+      }
+    }
     if (typeof onClick === 'function') onClick(e);
   };
 

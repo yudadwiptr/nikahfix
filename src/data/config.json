@@ -9,13 +9,13 @@
     "holyMatrimony": {
       "title": "Holy Matrimony",
       "place": "HKBP Tangerang Kota",
-      "time": "08:00",
+      "time": "29 November 2025 - 08:00",
       "mapsUrl": "https://maps.app.goo.gl/eP2Zq7xp8tMwNfSk9?g_st=ic"
     },
-    "reception": {
+    "reception": { 
       "title": "Wedding Reception",
       "place": "Edelweiss Wedding Hall, Sport Club Karawaci",
-      "time": "11:00",
+      "time": "29 November 2025 - 11:00",
       "mapsUrl": "https://maps.app.goo.gl/GrZs2Lj3Jpn38rEV8?g_st=ic"
     }
   },
@@ -35,8 +35,8 @@
       "ibu": "Delfi Panjaitan, S.E., M.Si., Ak., BKP., CA., CPA., CLI., ASEAN CPA., CFI"
     }
   },
-  "audio_url": "/public/audio/weddingsong.mp3",
-  "tanggal_pernikahan": "29 Nov 2025",
+  "audio_url": "/audio/weddingsong.mp3",
+  "tanggal_pernikahan": "29 November 2025",
   "thumbnail_image_url": "/images/foto_1.jpeg",
   "url_video": "/video/videonya.mp4",
   "intro": "Setelah Piter dan Dewi dipertemukan dalam situasi yang tepat, di mana keduanya telah siap untuk memulai hubungan bersama, tibalah mereka di awal perjalanan baru menuju pernikahan.",
@@ -46,17 +46,17 @@
     {
       "image_url": "/images/foto5.jpg",
       "title": "Episode 1: 9 December 2023",
-      "description": "It all started with a simple yet meaningful introduction—we were introduced by a mutual friend who somehow saw something in us that we hadn’t yet realized. From there, we became friends online, exchanging quick hellos on social media."
+      "description": "It all started with a simple yet meaningful introduction we were introduced by a mutual friend who somehow saw something in us that we hadn’t yet realized. From there, we became friends online, exchanging quick hellos on social media."
     },
     {
       "image_url": "/images/foto_6.jpg",
       "title": "Episode 2: 19 May 2024",
-      "description": "Until one day, fate brought us together at a friend’s wedding. That meeting marked the beginning of a new story. We started spending more time together—sharing stories, laughter, and encouragement amid our busy days."
+      "description": "Until one day, fate brought us together at a friend’s wedding. That meeting marked the beginning of a new story. We started spending more time together sharing stories, laughter, and encouragement amid our busy days."
     },
     {
       "image_url": "/images/foto_7.jpg",
       "title": "Episode 3: 08 October 2024",
-      "description": "Gradually, we realized that our togetherness was no coincidence. October 8th, 2024 became a special date—the day we chose to begin our journey as a couple."
+      "description": "Gradually, we realized that our togetherness was no coincidence. October 8th, 2024 became a special date the day we chose to begin our journey as a couple."
     },
     {
       "image_url": "/images/gl_1.jpg",

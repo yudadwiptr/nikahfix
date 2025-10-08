@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './App.css';
 import UserWatch from './components/section/user-watch';
 import Thumbnail from './components/section/thumbnail';
+import SongButton from './components/ui/song-button';
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -17,6 +18,8 @@ function App() {
             }}
           />
         )}
+        {/* persistent audio control mounted at top-level so music stays alive while tab is open */}
+        <SongButton />
       </div>
     </div>
   );

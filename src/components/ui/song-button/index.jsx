@@ -3,24 +3,60 @@ import data from '../../../data/config.json';
 
 export default function SongButton() {
   const [isPlaying, setIsPlaying] = React.useState(true);
-  //stop the song when browser is closed or minimized
+  const audioRef = React.useRef(null);
+
+  // Initialize audio playback and handle mobile interaction
   React.useEffect(() => {
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+    const initializeAudio = async () => {
+      const audio = audioRef.current;
+      if (!audio) return;
+      try {
+        if (isMobile) {
+          // On mobile, wait for first user interaction (touchstart or click)
+          const playOnInteraction = () => {
+            audio.play().catch(() => {});
+            document.removeEventListener('touchstart', playOnInteraction);
+            document.removeEventListener('click', playOnInteraction);
+          };
+          document.addEventListener('touchstart', playOnInteraction, { passive: true });
+          document.addEventListener('click', playOnInteraction, { passive: true });
+        } else {
+          // On desktop, try to play immediately
+          await audio.play().catch(() => {});
+        }
+      } catch (err) {
+        console.log('Audio playback prevented:', err);
+      }
+    };
+
     const handleVisibilityChange = () => {
+      const audio = audioRef.current;
+      if (!audio) return;
       if (document.hidden) {
+        audio.pause();
         setIsPlaying(false);
-      } else {
+      } else if (!isMobile) {
+        audio.play().catch(() => {});
         setIsPlaying(true);
       }
     };
+
     document.addEventListener('visibilitychange', handleVisibilityChange);
+    initializeAudio();
+
     return () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
+      document.removeEventListener('touchstart', () => {});
+      document.removeEventListener('click', () => {});
     };
   }, []);
   return (
     // component to play and stop the song
     <div className="fixed bottom-5 right-5 ">
       <audio
+        ref={audioRef}
         autoPlay
         loop
         src={isPlaying ? data.audio_url : ''}
