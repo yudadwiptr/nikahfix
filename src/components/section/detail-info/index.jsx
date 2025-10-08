@@ -36,8 +36,7 @@ export default function DetailInfo() {
           <WishSection />
         ) : null}
       </div>
-      <Footer />
-      <SongButton />
+  <Footer />
     </div>
   );
 }

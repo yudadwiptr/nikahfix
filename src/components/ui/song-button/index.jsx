@@ -6,52 +6,7 @@ export default function SongButton() {
   const audioRef = React.useRef(null);
 
   // Initialize audio playback and handle mobile interaction
-  React.useEffect(() => {
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-
-    const initializeAudio = async () => {
-      const audio = audioRef.current;
-      if (!audio) return;
-      try {
-        if (isMobile) {
-          // On mobile, wait for first user interaction (touchstart or click)
-          const playOnInteraction = () => {
-            audio.play().catch(() => {});
-            document.removeEventListener('touchstart', playOnInteraction);
-            document.removeEventListener('click', playOnInteraction);
-          };
-          document.addEventListener('touchstart', playOnInteraction, { passive: true });
-          document.addEventListener('click', playOnInteraction, { passive: true });
-        } else {
-          // On desktop, try to play immediately
-          await audio.play().catch(() => {});
-        }
-      } catch (err) {
-        console.log('Audio playback prevented:', err);
-      }
-    };
-
-    const handleVisibilityChange = () => {
-      const audio = audioRef.current;
-      if (!audio) return;
-      if (document.hidden) {
-        audio.pause();
-        setIsPlaying(false);
-      } else if (!isMobile) {
-        audio.play().catch(() => {});
-        setIsPlaying(true);
-      }
-    };
-
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-    initializeAudio();
-
-    return () => {
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
-      document.removeEventListener('touchstart', () => {});
-      document.removeEventListener('click', () => {});
-    };
-  }, []);
+  // Remove auto-play on mount. Only play when triggered by guest button.
   return (
     // component to play and stop the song
     <div className="fixed bottom-5 right-5 ">
@@ -65,6 +20,7 @@ export default function SongButton() {
       <button
         onClick={() => setIsPlaying(!isPlaying)}
         className="w-7 h-7 bg-black rounded-full flex justify-center items-center"
+        aria-label={isPlaying ? 'Pause music' : 'Play music'}
       >
         <svg
           className={isPlaying ? 'animate-spin' : ''}

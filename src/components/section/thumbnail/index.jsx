@@ -82,7 +82,17 @@ export default function Thumbnail() {
         </div>
         <div className="w-full text-center  ">
           <button
-            onClick={() => setIsOpenDetail(true)}
+            onClick={() => {
+              setIsOpenDetail(true);
+              // Trigger music play
+              const globalAudio = document.querySelector('audio');
+              if (globalAudio) {
+                globalAudio.currentTime = 0;
+                globalAudio.play().catch(() => {});
+                const evt = new CustomEvent('song-play');
+                window.dispatchEvent(evt);
+              }
+            }}
             className="uppercase w-full text-xl font-semibold transition-all duration-300 hover:scale-110 hover:text-[#E50913] relative group"
           >
             <span className="relative z-10">See The Detail</span>

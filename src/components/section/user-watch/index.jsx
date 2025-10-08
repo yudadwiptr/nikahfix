@@ -12,29 +12,16 @@ export default function UserWatch({ onClick }) {
     }
   }, []);
 
-  const audioRef = React.useRef(null);
-
-  useEffect(() => {
-    // initialize audio once
-    audioRef.current = new Audio('/public/audio/netflix.mp3');
-    audioRef.current.preload = 'auto';
-  }, []);
 
   const handleClick = (e) => {
-    // play sound on click, ignore play errors
-    if (audioRef.current) {
-      try {
-        audioRef.current.currentTime = 0;
-        audioRef.current.play().catch(() => {});
-      } catch (err) {}
-    }
-    // On mobile, also trigger global audio (SongButton)
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    if (isMobile) {
-      const globalAudio = document.querySelector('audio');
-      if (globalAudio) {
-        globalAudio.play().catch(() => {});
-      }
+    // Only trigger global audio (SongButton)
+    const globalAudio = document.querySelector('audio');
+    if (globalAudio) {
+      globalAudio.currentTime = 0;
+      globalAudio.play().catch(() => {});
+      // Set isPlaying state in SongButton if possible
+      const evt = new CustomEvent('song-play');
+      window.dispatchEvent(evt);
     }
     if (typeof onClick === 'function') onClick(e);
   };
