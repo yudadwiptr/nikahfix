@@ -35,10 +35,10 @@
       "ibu": "Delfi Panjaitan, S.E., M.Si., Ak., BKP., CA., CPA., CLI., ASEAN CPA., CFI"
     }
   },
-  "audio_url": "https://slametandfatma.wedding/audio/myaudio.mp3",
+  "audio_url": "/public/audio/weddingsong.mp3",
   "tanggal_pernikahan": "29 Nov 2025",
   "thumbnail_image_url": "/images/foto_1.jpeg",
-  "url_video": "/images/VIDEO.png",
+  "url_video": "/video/videonya.mp4",
   "intro": "Setelah Piter dan Dewi dipertemukan dalam situasi yang tepat, di mana keduanya telah siap untuk memulai hubungan bersama, tibalah mereka di awal perjalanan baru menuju pernikahan.",
   "breaking_news_img": "/images/gl_2.jpg",
   "breaking_news_content": "<p>Halo, teman-teman dan keluarga tersayang! Kami dengan penuh sukacita ingin berbagi kabar bahagia bahwa kami akan segera menikah!</p><p className=\"mt-4\">Momen ini adalah langkah baru dalam perjalanan hidup kami, dan kami merasa sangat bersyukur bisa merayakannya bersama orang-orang yang kami cintai.</p><p className=\"mt-4\">Kami ingin mengundang kalian semua untuk hadir dan menjadi bagian dari hari istimewa kami, untuk berbagi doa, tawa, dan kebahagiaan bersama.</p><p className=\"mt-4\">Dengan penuh cinta,</p><p>Dewi & Piter 🤍",
@@ -80,6 +80,28 @@
     "bride_and_groom": true,
     "love_story": true,
     "gallery": true,
+    "gift": true,
     "wish": true
+  },
+  "gift": {
+    "title": "Wedding Gift",
+    "description": "Your presence and prayers are our greatest gifts. However, if you would like to send a gift, we have provided some options below:",
+    "bank_accounts": [
+      {
+        "bank_name": "Bank BCA",
+        "account_number": "1234567890",
+        "account_holder": "Dewi Putri Siagian"
+      },
+      {
+        "bank_name": "Bank Mandiri",
+        "account_number": "9876543210",
+        "account_holder": "Irianto Petrus Binsardo Simorangkir"
+      }
+    ],
+    "wishlist": {
+      "title": "Our Wedding Wishlist",
+      "description": "If you prefer to give a physical gift, we've created a wishlist of items we'd love to have in our new home.",
+      "url": "https://www.amazon.com/wedding/registry/example"
+    }
   }
 }

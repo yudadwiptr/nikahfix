@@ -12,6 +12,25 @@ export default function UserWatch({ onClick }) {
     }
   }, []);
 
+  const audioRef = React.useRef(null);
+
+  useEffect(() => {
+    // initialize audio once
+    audioRef.current = new Audio('/public/audio/netflix.mp3');
+    audioRef.current.preload = 'auto';
+  }, []);
+
+  const handleClick = (e) => {
+    // play sound on click, ignore play errors
+    if (audioRef.current) {
+      try {
+        audioRef.current.currentTime = 0;
+        audioRef.current.play().catch(() => {});
+      } catch (err) {}
+    }
+    if (typeof onClick === 'function') onClick(e);
+  };
+
   return (
     <div className="py-10 text-center space-y-28">
       <img
@@ -23,7 +42,7 @@ export default function UserWatch({ onClick }) {
       />
       <div>
         <p className="mb-10 text-2xl">Who's Watching?</p>
-        <div onClick={onClick} className="group cursor-pointer">
+        <div onClick={handleClick} className="group cursor-pointer">
           <img
             className="mx-auto group-hover:scale-125"
             src="images/guest-icon.png"

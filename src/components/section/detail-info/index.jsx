@@ -5,6 +5,7 @@ import BreakingNews from '../breaking-news';
 import Bridegroom from '../bride-groom';
 import CountdownTimer from '../countdown-timer';
 import WeddingLocations from '../wedding-locations';
+import GiftSection from '../gift';
 import LoveStory from '../love-story';
 import OurGallery from '../our-gallery';
 import WishSection from '../wish';
@@ -30,6 +31,7 @@ export default function DetailInfo() {
         {data.show_menu.gallery && (
           <OurGallery gallery={data.gallery} show_menu={data.show_menu} />
         )}
+        {data.show_menu.gift && <GiftSection />}
         {data.show_menu.wish && import.meta.env.VITE_APP_TABLE_NAME ? (
           <WishSection />
         ) : null}
