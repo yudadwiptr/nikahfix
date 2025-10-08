@@ -14,14 +14,19 @@ export default function UserWatch({ onClick }) {
 
 
   const handleClick = (e) => {
-    // Only trigger global audio (SongButton)
-    const globalAudio = document.querySelector('audio');
-    if (globalAudio) {
-      globalAudio.currentTime = 0;
-      globalAudio.play().catch(() => {});
-      // Set isPlaying state in SongButton if possible
-      const evt = new CustomEvent('song-play');
-      window.dispatchEvent(evt);
+    // Play Netflix sound only on guest button click (mobile)
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    if (isMobile) {
+      let netflixAudio = document.getElementById('netflix-audio');
+      if (!netflixAudio) {
+        netflixAudio = document.createElement('audio');
+        netflixAudio.id = 'netflix-audio';
+        netflixAudio.src = '/audio/netflix.mp3';
+        netflixAudio.preload = 'auto';
+        document.body.appendChild(netflixAudio);
+      }
+      netflixAudio.currentTime = 0;
+      netflixAudio.play().catch(() => {});
     }
     if (typeof onClick === 'function') onClick(e);
   };
