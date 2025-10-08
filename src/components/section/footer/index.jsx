@@ -20,6 +20,7 @@ export default function Footer() {
           >
             Yuma Studio
           </a>
+           <p className="text-[#A3A1A1] text-base">© 2025 | ALL RIGHTS RESERVED</p>
         </p>
       </div>
     </div>
