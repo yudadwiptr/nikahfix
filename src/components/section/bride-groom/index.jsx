@@ -19,13 +19,13 @@ export default function Bridegroom() {
             onClick={() => setSelectedImage(data.pegantin.wanita.foto)}
           />
           <div>
-            <h4 className="text-sm text-white font-medium mt-2">
+            <h4 className="text-base text-white font-medium mt-2">
               {data.pegantin.wanita.nama}
             </h4>
             <p className="text-[#A3A1A1] text-xs leading-4 mt-2">
-              Putri dari {data.pegantin.wanita.bapak} &amp; Ibu{' '}
-              {data.pegantin.wanita.ibu}
-            </p>
+                Putri ke-1 dari : <br /> {data.pegantin.wanita.bapak}
+                <br /> &amp; <br /> Ibu {data.pegantin.wanita.ibu}
+                </p>
           </div>
         </div>
         <div>
@@ -37,12 +37,12 @@ export default function Bridegroom() {
             onClick={() => setSelectedImage(data.pegantin.pria.foto)}
           />
           <div>
-            <h4 className="text-sm text-white font-medium mt-2">
+            <h4 className="text-base text-white font-medium mt-2">
               {data.pegantin.pria.nama}
             </h4>
             <p className="text-[#A3A1A1] text-xs leading-4 mt-2">
-              Putra dari {data.pegantin.pria.bapak} &amp; Ibu{' '}
-              {data.pegantin.pria.ibu}
+              Putra ke-1 dari : <br /> {data.pegantin.pria.bapak}
+              <br /> &amp; <br /> Ibu {data.pegantin.pria.ibu}
             </p>
           </div>
         </div>
