@@ -16,7 +16,7 @@ import SongButton from '../../ui/song-button';
 export default function DetailInfo() {
   return (
     <div className="space-y-5 pb-10">
-      <video className="w-full" autoPlay muted>
+      <video className="w-full" autoPlay muted playsInline>
         <source src={data.url_video} type="video/mp4" />
         Your browser does not support the video tag.
       </video>

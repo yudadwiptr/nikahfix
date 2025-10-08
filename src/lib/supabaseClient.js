@@ -1,10 +1,11 @@
-// src/supabaseClient.js
 import { createClient } from '@supabase/supabase-js';
 
-// Replace with your own Supabase URL and API Key
-const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+if (!supabaseUrl || !supabaseAnonKey) {
+  console.warn('Missing VITE_SUPABASE_URL or VITE_SUPABASE_ANON_KEY in .env');
+}
 
-export default supabase;
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
+export default supabase; // <-- default export

@@ -1,10 +1,15 @@
+
 import { useState } from 'react';
 import './App.css';
 import UserWatch from './components/section/user-watch';
 import Thumbnail from './components/section/thumbnail';
 import SongButton from './components/ui/song-button';
+import WishForm from './components/WishForm';
+// ...
+<WishForm />
 
-function App() {
+
+export default function App() {
   const [isLogin, setIsLogin] = useState(false);
   return (
     <div className="bg-black text-white min-h-screen">
@@ -24,5 +29,3 @@ function App() {
     </div>
   );
 }
-
-export default App;

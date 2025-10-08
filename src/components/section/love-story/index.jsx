@@ -1,19 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import data from '../../../data/config.json';
+import ImageViewer from '../../ui/image-viewer';
 
-const LoveItem = ({ imageUrl, title, duration, description }) => {
+const LoveItem = ({ imageUrl, title, duration, description, onImageClick }) => {
   return (
     <div>
       <div className="grid grid-cols-2 gap-2">
         <div>
           <img
-            className="w-full rounded-md object-cover"
+            className="w-full rounded-md object-cover cursor-pointer hover:scale-105 transition-transform"
             height={100}
-            style={{
-              maxHeight: '100px',
-            }}
+            style={{ maxHeight: '100px' }}
             src={imageUrl}
-            alt="dummy"
+            alt="Foto episode love story"
+            onClick={() => onImageClick(imageUrl)}
           />
         </div>
         <div className="flex justify-center">
@@ -23,12 +23,13 @@ const LoveItem = ({ imageUrl, title, duration, description }) => {
           </div>
         </div>
       </div>
-  <p className="text-[#A3A1A1] text-xs mt-2" style={{ textAlign: 'justify' }}>{description}</p>
+      <p className="text-[#A3A1A1] text-xs mt-2" style={{ textAlign: 'justify' }}>{description}</p>
     </div>
   );
 };
 
 export default function LoveStory() {
+  const [selectedImage, setSelectedImage] = useState(null);
   return (
     <div>
       <h2 className="text-lg leading-5 text-white font-bold mb-4">
@@ -42,9 +43,11 @@ export default function LoveStory() {
             title={item.title}
             duration="29m 11s "
             description={item.description}
+            onImageClick={setSelectedImage}
           />
         ))}
       </div>
+      <ImageViewer image={selectedImage} onClose={() => setSelectedImage(null)} />
     </div>
   );
 }

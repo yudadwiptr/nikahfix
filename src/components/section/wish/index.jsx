@@ -44,6 +44,10 @@ const InputField = ({ label, error, ...props }) => (
 export default function WishSection() {
   const lastChildRef = useRef(null);
   const [data, setData] = useState([]);
+  const [page, setPage] = useState(1);
+  const pageSize = 3;
+  const totalPages = Math.ceil(data.length / pageSize);
+  const pagedData = data.slice((page - 1) * pageSize, page * pageSize);
   const [name, setName] = useState('');
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
@@ -77,7 +81,6 @@ export default function WishSection() {
 
     const randomColor = colorList[data.length % colorList.length];
     const newmessage = badwords.censor(message);
-    
     try {
       const { error: supabaseError } = await supabase
         .from(import.meta.env.VITE_APP_TABLE_NAME)
@@ -85,11 +88,21 @@ export default function WishSection() {
 
       if (supabaseError) throw supabaseError;
 
-      await fetchData();
+      // Tambahkan wish baru ke state tanpa reload manual
+      setData(prev => [
+        { name, message: newmessage, color: randomColor },
+        ...prev
+      ]);
       setTimeout(scrollToLastChild, 500);
       setName('');
       setMessage('');
       setFormErrors({});
+      setError(null);
+      // Tampilkan pesan sukses
+      setTimeout(() => {
+        setError(null);
+      }, 2000);
+      setError('Yeay terkirim!');
     } catch (err) {
       setError('Failed to send message. Please try again.');
     } finally {
@@ -132,7 +145,7 @@ export default function WishSection() {
 
       <form onSubmit={handleSubmit} className="bg-[#181818] p-4 rounded-lg space-y-4 mb-6">
         {error && (
-          <div className="bg-[#E50913]/10 border border-[#E50913] text-[#E50913] px-4 py-2 rounded-lg">
+          <div className={`bg-[#E50913]/10 border border-[#E50913] px-4 py-2 rounded-lg ${error === 'Yeay terkirim!' ? 'text-green-500 border-green-500 bg-green-500/10' : 'text-[#E50913]'}`}>
             {error}
           </div>
         )}
@@ -183,16 +196,35 @@ export default function WishSection() {
       </form>
 
       <div className="space-y-4">
-        {data.map((item, index) => (
+        {pagedData.map((item, index) => (
           <WishItem
-            key={index}
+            key={index + (page - 1) * pageSize}
             name={item.name}
             message={item.message}
             color={item.color}
-            ref={index === data.length - 1 ? lastChildRef : null}
+            ref={index === pagedData.length - 1 ? lastChildRef : null}
           />
         ))}
       </div>
+      {totalPages > 1 && (
+        <div className="flex justify-center gap-2 mt-4">
+          <button
+            className={`px-4 py-2 rounded bg-[#E50913] text-white font-bold disabled:opacity-50 disabled:cursor-not-allowed`}
+            onClick={() => setPage(page - 1)}
+            disabled={page === 1}
+          >
+            Previous
+          </button>
+          <span className="px-3 py-2 text-white">Page {page} of {totalPages}</span>
+          <button
+            className={`px-4 py-2 rounded bg-[#E50913] text-white font-bold disabled:opacity-50 disabled:cursor-not-allowed`}
+            onClick={() => setPage(page + 1)}
+            disabled={page === totalPages}
+          >
+            Next
+          </button>
+        </div>
+      )}
 
       {/* Netflix-style Thank You Section */}
       <div className="mt-10 flex flex-col items-center justify-center">
