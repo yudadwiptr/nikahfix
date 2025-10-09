@@ -226,12 +226,6 @@ export default function WishSection() {
         </div>
       )}
 
-      {/* Netflix-style Thank You Section */}
-      <div className="mt-10 flex flex-col items-center justify-center">
-        <div className="bg-[#E50913] text-white font-bold text-lg px-6 py-3 rounded mb-2 shadow-lg">
-          Thank You for Visiting!
-        </div>
-      </div>
     </div>
   );
 }
