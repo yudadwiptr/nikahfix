@@ -39,6 +39,27 @@ export default function SongButton() {
         netflix.play().catch(() => {});
       } catch (err) {}
 
+      // Prepare weddingsong audio with the user gesture: attempt a quick play and pause so
+      // future .play() calls are allowed by mobile browsers. Only do this if the weddingsong
+      // element exists and isn't already playing.
+      try {
+        if (audioRef.current) {
+          // If it's already playing, no-op
+          if (audioRef.current.paused) {
+            // try a quick play then pause immediately
+            const p = audioRef.current.play();
+            if (p && p.then) {
+              p.then(() => {
+                audioRef.current.pause();
+                audioRef.current.currentTime = 0;
+              }).catch(() => {
+                // ignore
+              });
+            }
+          }
+        }
+      } catch (err) {}
+
       // When netflix ends, start wedding song after 1 second. Use once:true to avoid duplicates.
       netflix.addEventListener('ended', startMainWithDelay, { once: true });
     }
