@@ -33,7 +33,7 @@ export default function TitleInfo() {
         Coming soon on Saturday, {data.tanggal_pernikahan}
       </div>
       <div className="pt-2">
-        <p className="text-white text-sm leading-[1.15rem] mb-2" style={{ textAlign: 'justify', textShadow: '0 2px 8px #000, 0 0px 1px #000' }}>
+        <p className="text-white text-sm leading-[1.15rem] mb-2 whitespace-pre-line" style={{ textAlign: 'justify', textShadow: '0 2px 8px #000, 0 0px 1px #000' }}>
           {data.intro}
         </p>
       </div>

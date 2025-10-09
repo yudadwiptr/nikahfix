@@ -28,6 +28,11 @@ export default function UserWatch({ onClick }) {
       netflixAudio.currentTime = 0;
       netflixAudio.play().catch(() => {});
     }
+    // Dispatch a global event so the top-level SongButton can start the main song
+    try {
+      window.dispatchEvent(new Event('guest-click'));
+    } catch (err) {}
+
     if (typeof onClick === 'function') onClick(e);
   };
 

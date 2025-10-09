@@ -84,13 +84,33 @@ export default function Thumbnail() {
           <button
             onClick={() => {
               setIsOpenDetail(true);
-              // Trigger music play
-              const globalAudio = document.querySelector('audio');
+              // Trigger music play but avoid restarting if the wedding song already started earlier.
+              // Prefer the dedicated weddingsong audio element.
+              const weddingsong = document.getElementById('weddingsong-audio');
+              const fallbackAudio = document.querySelector('audio');
+              const globalAudio = weddingsong || fallbackAudio;
               if (globalAudio) {
-                globalAudio.currentTime = 0;
-                globalAudio.play().catch(() => {});
-                const evt = new CustomEvent('song-play');
-                window.dispatchEvent(evt);
+                // If this is the weddingsong element and it's already playing, do nothing.
+                if (
+                  globalAudio.id === 'weddingsong-audio' &&
+                  !globalAudio.paused &&
+                  !globalAudio.ended &&
+                  globalAudio.currentTime > 0
+                ) {
+                  // already playing -> don't restart
+                } else {
+                  // play/resume without forcibly resetting if it's already playing
+                  try {
+                    if (globalAudio.paused) globalAudio.play().catch(() => {});
+                    else if (globalAudio.id !== 'weddingsong-audio') {
+                      // If it's some other audio (e.g. intro), reset and play
+                      globalAudio.currentTime = 0;
+                      globalAudio.play().catch(() => {});
+                    }
+                  } catch (err) {}
+                  const evt = new CustomEvent('song-play');
+                  window.dispatchEvent(evt);
+                }
               }
             }}
             className="uppercase w-full text-xl font-semibold transition-all duration-300 hover:scale-110 hover:text-[#E50913] relative group"
