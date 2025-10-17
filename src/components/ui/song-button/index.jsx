@@ -35,6 +35,34 @@ export default function SongButton() {
     }, stepTime);
   };
 
+  const fadeOut = (durationMs = 600, onDone) => {
+    if (!audioRef.current) {
+      if (typeof onDone === 'function') onDone();
+      return;
+    }
+    clearFadeTimer();
+    let start = 1;
+    try {
+      start = typeof audioRef.current.volume === 'number' ? audioRef.current.volume : 1;
+    } catch {}
+    const steps = Math.max(8, Math.floor(durationMs / 60));
+    const stepTime = Math.max(30, Math.floor(durationMs / steps));
+    let current = 0;
+    fadeTimerRef.current = setInterval(() => {
+      if (!audioRef.current) return clearFadeTimer();
+      current += 1;
+      const v = Math.max(0, start * (1 - current / steps));
+      try {
+        audioRef.current.volume = v;
+      } catch {}
+      if (v <= 0 || audioRef.current.paused) {
+        clearFadeTimer();
+        try { audioRef.current.volume = 0; } catch {}
+        if (typeof onDone === 'function') onDone();
+      }
+    }, stepTime);
+  };
+
   // Listen for a global 'guest-click' event dispatched when the Guest button is pressed.
   // When it fires, wait for the netflix intro (if present) to end, then start the main wedding song.
   React.useEffect(() => {
@@ -103,15 +131,21 @@ export default function SongButton() {
     }
 
     window.addEventListener('guest-click', handleGuestClick);
-    return () => window.removeEventListener('guest-click', handleGuestClick);
+    return () => {
+      window.removeEventListener('guest-click', handleGuestClick);
+      clearFadeTimer();
+    };
   }, []);
 
   const togglePlay = () => {
     if (!audioRef.current) return;
     if (isPlaying) {
-      clearFadeTimer();
-      audioRef.current.pause();
-      setIsPlaying(false);
+      // smooth fade-out then pause
+      fadeOut(600, () => {
+        if (!audioRef.current) return;
+        audioRef.current.pause();
+        setIsPlaying(false);
+      });
     } else {
       // smooth resume
       try { audioRef.current.volume = 0; } catch {}
