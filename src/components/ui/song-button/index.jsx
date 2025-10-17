@@ -4,6 +4,36 @@ import data from '../../../data/config.json';
 export default function SongButton() {
   const [isPlaying, setIsPlaying] = React.useState(false);
   const audioRef = React.useRef(null);
+  const fadeTimerRef = React.useRef(null);
+
+  const clearFadeTimer = () => {
+    if (fadeTimerRef.current) {
+      clearInterval(fadeTimerRef.current);
+      fadeTimerRef.current = null;
+    }
+  };
+
+  const fadeIn = (durationMs = 1800) => {
+    if (!audioRef.current) return;
+    clearFadeTimer();
+    try {
+      audioRef.current.volume = 0;
+    } catch {}
+    const steps = 18; // 100ms per step for 1.8s total
+    const stepTime = Math.max(30, Math.floor(durationMs / steps));
+    let current = 0;
+    fadeTimerRef.current = setInterval(() => {
+      if (!audioRef.current) return clearFadeTimer();
+      current += 1;
+      const v = Math.min(1, current / steps);
+      try {
+        audioRef.current.volume = v;
+      } catch {}
+      if (v >= 1 || audioRef.current.paused) {
+        clearFadeTimer();
+      }
+    }, stepTime);
+  };
 
   // Listen for a global 'guest-click' event dispatched when the Guest button is pressed.
   // When it fires, wait for the netflix intro (if present) to end, then start the main wedding song.
@@ -18,7 +48,15 @@ export default function SongButton() {
         if (!audioRef.current.src) audioRef.current.src = data.audio_url;
         audioRef.current.loop = true;
         audioRef.current.currentTime = 0;
-        audioRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
+        // start from volume 0 then fade-in for smooth start
+        try { audioRef.current.volume = 0; } catch {}
+        audioRef.current
+          .play()
+          .then(() => {
+            setIsPlaying(true);
+            fadeIn(1800);
+          })
+          .catch(() => {});
       };
 
       const startMainWithDelay = () => setTimeout(startMain, 1000); // 1s delay after netflix ends
@@ -71,10 +109,19 @@ export default function SongButton() {
   const togglePlay = () => {
     if (!audioRef.current) return;
     if (isPlaying) {
+      clearFadeTimer();
       audioRef.current.pause();
       setIsPlaying(false);
     } else {
-      audioRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
+      // smooth resume
+      try { audioRef.current.volume = 0; } catch {}
+      audioRef.current
+        .play()
+        .then(() => {
+          setIsPlaying(true);
+          fadeIn(1200);
+        })
+        .catch(() => {});
     }
   };
 

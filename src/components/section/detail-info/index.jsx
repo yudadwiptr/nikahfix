@@ -14,9 +14,21 @@ import data from '../../../data/config.json';
 import SongButton from '../../ui/song-button';
 
 export default function DetailInfo() {
+  const videoRef = React.useRef(null);
+  React.useEffect(() => {
+    // enforce mute on mobile and ensure volume is zero
+    if (videoRef.current) {
+      try {
+        videoRef.current.muted = true;
+        videoRef.current.defaultMuted = true;
+        videoRef.current.volume = 0;
+      } catch {}
+    }
+  }, []);
+
   return (
     <div className="space-y-5 pb-10">
-      <video className="w-full" autoPlay muted playsInline loop>
+      <video ref={videoRef} className="w-full" autoPlay muted playsInline loop>
         <source src={data.url_video} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
