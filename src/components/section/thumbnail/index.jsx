@@ -38,8 +38,22 @@ export default function Thumbnail() {
     };
   }, []);
 
+  // suaravideo audio ref for synchronized playback
+  const suaravideoRef = React.useRef(null);
+  // Handler to open detail and schedule weddingsong
+  const handleSeeDetail = () => {
+    setIsOpenDetail(true);
+    // After 2.5s, start weddingsong.mp3 if not already playing
+    setTimeout(() => {
+      const weddingsong = document.getElementById('weddingsong-audio');
+      if (weddingsong && weddingsong.paused) {
+        weddingsong.play().catch(() => {});
+      }
+    }, 2500);
+  };
+
   if (isOpenDetail) {
-    return <DetailInfo />;
+    return <DetailInfo suaravideoRef={suaravideoRef} />;
   }
   return (
     <div
@@ -82,37 +96,7 @@ export default function Thumbnail() {
         </div>
         <div className="w-full text-center  ">
           <button
-            onClick={() => {
-              setIsOpenDetail(true);
-              // Trigger music play but avoid restarting if the wedding song already started earlier.
-              // Prefer the dedicated weddingsong audio element.
-              const weddingsong = document.getElementById('weddingsong-audio');
-              const fallbackAudio = document.querySelector('audio');
-              const globalAudio = weddingsong || fallbackAudio;
-              if (globalAudio) {
-                // If this is the weddingsong element and it's already playing, do nothing.
-                if (
-                  globalAudio.id === 'weddingsong-audio' &&
-                  !globalAudio.paused &&
-                  !globalAudio.ended &&
-                  globalAudio.currentTime > 0
-                ) {
-                  // already playing -> don't restart
-                } else {
-                  // play/resume without forcibly resetting if it's already playing
-                  try {
-                    if (globalAudio.paused) globalAudio.play().catch(() => {});
-                    else if (globalAudio.id !== 'weddingsong-audio') {
-                      // If it's some other audio (e.g. intro), reset and play
-                      globalAudio.currentTime = 0;
-                      globalAudio.play().catch(() => {});
-                    }
-                  } catch (err) {}
-                  const evt = new CustomEvent('song-play');
-                  window.dispatchEvent(evt);
-                }
-              }
-            }}
+            onClick={handleSeeDetail}
             className="uppercase w-full text-xl font-semibold transition-all duration-300 hover:scale-110 hover:text-[#E50913] relative group"
           >
             <span className="relative z-10">See The Detail</span>
@@ -136,6 +120,13 @@ export default function Thumbnail() {
             </svg>
           </div>
         </div>
+        {/* Hidden suaravideo audio element for synchronized playback */}
+        <audio
+          ref={suaravideoRef}
+          src="/audio/sore.mp3"
+          preload="auto"
+          className="hidden"
+        />
       </div>
     </div>
   );

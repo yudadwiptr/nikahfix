@@ -13,22 +13,36 @@ import Footer from '../footer';
 import data from '../../../data/config.json';
 import SongButton from '../../ui/song-button';
 
-export default function DetailInfo() {
+export default function DetailInfo({ suaravideoRef, suaravideoStarted }) {
   const videoRef = React.useRef(null);
   React.useEffect(() => {
-    // enforce mute on mobile and ensure volume is zero
     if (videoRef.current) {
       try {
-        videoRef.current.muted = true;
-        videoRef.current.defaultMuted = true;
+        videoRef.current.muted = false;
+        videoRef.current.defaultMuted = false;
         videoRef.current.volume = 0;
       } catch {}
+      // Attach event to play suaravideo when video starts
+      const handlePlay = () => {
+        if (suaravideoRef && suaravideoRef.current) {
+          suaravideoRef.current.currentTime = 0;
+          suaravideoRef.current.play().catch(() => {});
+        }
+      };
+      videoRef.current.addEventListener('play', handlePlay, { once: true });
+      // Fallback: if video is already playing on mount, play suaravideo immediately
+      if (!videoRef.current.paused) {
+        handlePlay();
+      }
+      return () => {
+        videoRef.current.removeEventListener('play', handlePlay);
+      };
     }
-  }, []);
+  }, [suaravideoRef]);
 
   return (
     <div className="space-y-5 pb-10">
-      <video ref={videoRef} className="w-full" autoPlay muted playsInline loop>
+  <video ref={videoRef} className="w-full" autoPlay playsInline loop>
         <source src={data.url_video} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
@@ -48,7 +62,7 @@ export default function DetailInfo() {
           <WishSection />
         ) : null}
       </div>
-  <Footer />
+      <Footer />
     </div>
   );
 }

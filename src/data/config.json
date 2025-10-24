@@ -1,7 +1,7 @@
 {
   "locations": {
     "martumpol": {
-      "title": "Martumpol Ceremony",
+      "title": "Martumpol / Engagement",
       "place": "HKBP Sako Kenten Palembang",
       "time": "01 November 2025 - 10:00",
       "mapsUrl": "https://maps.app.goo.gl/oUL2Pk9Ec6g8dfAU8?g_st=ic"
@@ -24,14 +24,14 @@
       "foto": "/images/groom.jpg",
       "panggilan": "Piter",
       "nama": "Irianto Petrus Binsardo Simorangkir, ST., MBA.",
-      "bapak": "Bapak Ir. Tumpal Marojahan Simorangkir, MM.(✞)",
+      "bapak": "Ir. Tumpal Marojahan Simorangkir, MM.(✞)",
       "ibu": "dr. Ratna Nurlely br Silaen, MKK"
     },
     "wanita": {
       "foto": "/images/bride.jpg",
       "panggilan": "Dewi",
       "nama": "Dewi Putri Siagian, S.Kom., M.T.I., S.Ak.",
-      "bapak": "Bapak Willer Siagian, S.H., M.Si.(✞)",
+      "bapak": "Willer Siagian, S.H., M.Si.(✞)",
       "ibu": "Delfi Panjaitan, S.E., M.Si., Ak., BKP., CA., CPA., CLI., ASEAN CPA., CFI"
     }
   },
@@ -45,23 +45,23 @@
   "love_story": [
     {
       "image_url": "/images/foto5.jpg",
-      "title": "Episode 1: 9 December 2023",
-      "description": "It all started with a simple yet meaningful introduction we were introduced by a mutual friend who somehow saw something in us that we hadn’t yet realized. From there, we became friends online, exchanging quick hellos on social media."
+      "title": "Episode 1: 9 Desember 2023",
+      "description": "Semua berawal dari perkenalan sederhana namun bermakna. Kami dipertemukan oleh seorang teman yang melihat sesuatu dalam diri kami yang belum kami sadari. Dari situ, kami mulai berteman secara online, saling menyapa singkat di media sosial."
     },
     {
       "image_url": "/images/foto_6.jpg",
-      "title": "Episode 2: 19 May 2024",
-      "description": "Until one day, fate brought us together at a friend’s wedding. That meeting marked the beginning of a new story. We started spending more time together sharing stories, laughter, and encouragement amid our busy days."
+      "title": "Episode 2: 19 Mei 2024",
+      "description": "Hingga akhirnya, takdir mempertemukan kami di sebuah acara pernikahan teman. Pertemuan itu menjadi awal kisah baru. Kami mulai menghabiskan waktu bersama, berbagi cerita, tawa, dan saling mendukung di tengah kesibukan masing-masing."
     },
     {
       "image_url": "/images/foto_7.jpg",
-      "title": "Episode 3: 08 October 2024",
-      "description": "Gradually, we realized that our togetherness was no coincidence. October 8th, 2024 became a special date the day we chose to begin our journey as a couple."
+      "title": "Episode 3: 08 Oktober 2024",
+      "description": "Lambat laun, kami menyadari bahwa kebersamaan ini bukanlah kebetulan. Tanggal 8 Oktober 2024 menjadi hari istimewa di mana kami memutuskan untuk memulai perjalanan sebagai pasangan."
     },
     {
       "image_url": "/images/gl_1.jpg",
-      "title": "Final Episode: The Beginning of Forever",
-      "description": "Our journey hasn’t always been smooth, but each challenge has made us stronger, more mature, and more certain that we want to grow old together. Now we’re ready for the next chapter: exchanging vows before God and the people we love."
+      "title": "Final Episode: Awal Selamanya",
+      "description": "Perjalanan kami tidak selalu mulus, namun setiap tantangan membuat kami semakin kuat, dewasa, dan yakin untuk menua bersama. Kini, kami siap melangkah ke babak baru: mengucap janji suci di hadapan Tuhan dan orang-orang yang kami cintai."
     }
   ],
   "gallery": [

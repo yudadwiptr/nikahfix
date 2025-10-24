@@ -23,10 +23,10 @@ export default function Bridegroom() {
             <h4 className="text-base text-white font-medium mt-2">
               {data.pegantin.wanita.nama}
             </h4>
-      <p className="text-[#D1D5DB] text-xs leading-4 mt-2">
-                Putri ke-1 dari : <br /> {data.pegantin.wanita.bapak}
-                <br /> &amp; <br /> Ibu {data.pegantin.wanita.ibu}
-                </p>
+            <p className="text-[#D1D5DB] text-xs leading-4 mt-2">
+              Putri ke-1 dari : <br /> <strong>Bapak</strong> {data.pegantin.wanita.bapak}
+              <br /> <strong>Ibu</strong> {data.pegantin.wanita.ibu}
+            </p>
           </div>
         </div>
         <div>
@@ -43,8 +43,8 @@ export default function Bridegroom() {
               {data.pegantin.pria.nama}
             </h4>
             <p className="text-[#D1D5DB] text-xs leading-4 mt-2">
-              Putra ke-1 dari : <br /> {data.pegantin.pria.bapak}
-              <br /> &amp; <br /> Ibu {data.pegantin.pria.ibu}
+              Putra ke-1 dari : <br /> <strong>Bapak</strong> {data.pegantin.pria.bapak}
+              <br /> <strong>Ibu</strong> {data.pegantin.pria.ibu}
             </p>
           </div>
         </div>
