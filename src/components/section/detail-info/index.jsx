@@ -24,10 +24,12 @@ export default function DetailInfo({ suaravideoRef }) {
         suaravideoRef.current.play().catch(() => {});
         // Listen for sore.mp3 ended, then play weddingsong.mp3
         const handleSoreEnded = () => {
-          const weddingsong = document.getElementById('weddingsong-audio');
-          if (weddingsong && weddingsong.paused) {
-            weddingsong.play().catch(() => {});
-          }
+          setTimeout(() => {
+            const weddingsong = document.getElementById('weddingsong-audio');
+            if (weddingsong && weddingsong.paused) {
+              weddingsong.play().catch(() => {});
+            }
+          }, 1000); // 1 detik jeda setelah sore.mp3 selesai
         };
         suaravideoRef.current.addEventListener('ended', handleSoreEnded, { once: true });
       }
