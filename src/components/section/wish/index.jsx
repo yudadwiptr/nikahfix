@@ -2,7 +2,15 @@ import React, { forwardRef, useEffect, useRef, useState } from 'react';
 import supabase from '../../../lib/supabaseClient';
 import badwords from 'indonesian-badwords';
 
-const WishItem = forwardRef(({ name, message, color }, ref) => (
+function formatDate(dateString) {
+  if (!dateString) return '';
+  const date = new Date(dateString);
+  const options = { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+  // Example: 26 Oct 2025, 14:30
+  return date.toLocaleString('en-GB', options).replace(',', '');
+}
+
+const WishItem = forwardRef(({ name, message, color, created_at }, ref) => (
   <div ref={ref} className="bg-[#181818] p-4 rounded-lg transform transition-all duration-300 hover:scale-[1.02] hover:bg-[#222222]">
     <div className="flex items-start gap-3">
       <div className="flex-shrink-0">
@@ -21,6 +29,7 @@ const WishItem = forwardRef(({ name, message, color }, ref) => (
           <span className="text-xs text-[#E50913] bg-[#E50913]/10 px-2 py-0.5 rounded-full">Verified Guest</span>
         </div>
         <p className="text-[#A3A1A1] mt-2 leading-relaxed">{message}</p>
+        <div className="text-xs text-[#A3A1A1] mt-1">{formatDate(created_at)}</div>
       </div>
     </div>
   </div>
@@ -45,9 +54,9 @@ export default function WishSection() {
   const lastChildRef = useRef(null);
   const [data, setData] = useState([]);
   const [page, setPage] = useState(1);
-  const pageSize = 3;
+  const pageSize = 5;
   const totalPages = Math.ceil(data.length / pageSize);
-    const pagedData = data.slice((page - 1) * pageSize, page * pageSize);
+  const pagedData = data.slice((page - 1) * pageSize, page * pageSize);
   const [name, setName] = useState('');
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
@@ -112,16 +121,14 @@ export default function WishSection() {
       const { data, error } = await supabase
         .from(import.meta.env.VITE_APP_TABLE_NAME)
         .select('id, name, message, color, created_at')
-        .order('created_at', { ascending: true });
+        .order('created_at', { ascending: false }); // terbaru di atas
       if (error) throw error;
       if (!data || !Array.isArray(data)) {
-        console.error('No wishes data returned from Supabase:', data);
         setData([]);
       } else {
         setData(data);
       }
     } catch (err) {
-      console.error('Error fetching wishes:', err);
       setData([]);
     }
   };
@@ -206,6 +213,7 @@ export default function WishSection() {
             name={item.name}
             message={item.message}
             color={item.color}
+            created_at={item.created_at}
             ref={index === pagedData.length - 1 ? lastChildRef : null}
           />
         ))}
