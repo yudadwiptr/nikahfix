@@ -47,7 +47,7 @@ export default function WishSection() {
   const [page, setPage] = useState(1);
   const pageSize = 3;
   const totalPages = Math.ceil(data.length / pageSize);
-  const pagedData = data.slice((page - 1) * pageSize, page * pageSize);
+  const pagedData = data.slice().reverse().slice((page - 1) * pageSize, page * pageSize);
   const [name, setName] = useState('');
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
