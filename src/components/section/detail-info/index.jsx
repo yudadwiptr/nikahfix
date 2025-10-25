@@ -22,11 +22,22 @@ export default function DetailInfo({ suaravideoRef }) {
       if (suaravideoRef && suaravideoRef.current) {
         suaravideoRef.current.currentTime = 0;
         suaravideoRef.current.play().catch(() => {});
+        // Listen for sore.mp3 ended, then play weddingsong.mp3
+        const handleSoreEnded = () => {
+          const weddingsong = document.getElementById('weddingsong-audio');
+          if (weddingsong && weddingsong.paused) {
+            weddingsong.play().catch(() => {});
+          }
+        };
+        suaravideoRef.current.addEventListener('ended', handleSoreEnded, { once: true });
       }
     };
     videoRef.current.addEventListener('play', handlePlay, { once: true });
     return () => {
       videoRef.current.removeEventListener('play', handlePlay);
+      if (suaravideoRef && suaravideoRef.current) {
+        suaravideoRef.current.removeEventListener('ended', handleSoreEnded);
+      }
     };
   }, [suaravideoRef]);
 
@@ -38,7 +49,7 @@ export default function DetailInfo({ suaravideoRef }) {
         Your browser does not support the video tag.
       </video>
       {/* Dedicated hidden audio for sore.mp3, not controlled by SongButton */}
-      <audio ref={suaravideoRef} src="/audio/sore.mp3" preload="auto" className="hidden" />
+  <audio ref={suaravideoRef} src="/audio/sore.mp3" preload="auto" className="hidden" />
       <div className="px-4 space-y-4">
         <TitleInfo />
         <Bible />
