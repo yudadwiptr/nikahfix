@@ -44,7 +44,7 @@ export default function DetailInfo({ suaravideoRef }) {
   return (
     <div className="space-y-5 pb-10">
       {/* Video and sore.mp3 audio are synchronized */}
-      <video ref={videoRef} className="w-full" autoPlay playsInline loop>
+  <video ref={videoRef} className="w-full" autoPlay playsInline loop muted>
         <source src={data.url_video} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
