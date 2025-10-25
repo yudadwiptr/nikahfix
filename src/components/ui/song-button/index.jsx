@@ -88,27 +88,41 @@ export default function SongButton() {
 
     // 25s timer to auto-play weddingsong.mp3 if not already playing
     let timer = null;
+    let userPaused = false;
     function startAutoPlayTimer() {
       if (timer) clearTimeout(timer);
       timer = setTimeout(() => {
-        if (canPlay && audio && audio.paused) {
+        if (canPlay && audio && audio.paused && !userPaused) {
           audio.volume = 0;
           audio.play().then(() => fadeIn(1200)).catch(() => {});
         }
-      }, 25000);
+      }, 60000); // 1 minute
     }
-    // Start timer when canPlay becomes true
-    if (canPlay) {
+
+    // Listen for manual pause to block auto-play
+    function handleManualPause() {
+      if (audio && audio.paused) {
+        userPaused = true;
+        if (timer) clearTimeout(timer);
+      }
+    }
+    if (audio) {
+      audio.addEventListener('pause', handleManualPause);
+    }
+
+    // Start timer when canPlay becomes true and user hasn't paused
+    if (canPlay && !userPaused) {
       startAutoPlayTimer();
     }
 
-    // Clear timer if user leaves page or unmounts
+    // Clear timer and listeners if user leaves page or unmounts
     return () => {
       window.removeEventListener('video-first-ended', handleVideoFirstEnded);
       clearFadeTimer();
       if (audio) {
         audio.removeEventListener('play', handleAudioPlay);
         audio.removeEventListener('pause', handleAudioPause);
+        audio.removeEventListener('pause', handleManualPause);
       }
       if (timer) clearTimeout(timer);
     };
