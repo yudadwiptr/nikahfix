@@ -19,6 +19,7 @@ export default function DetailInfo() {
   const [firstLoopDone, setFirstLoopDone] = useState(false);
   const [videoStarted, setVideoStarted] = useState(false);
   const [weddingsongStarted, setWeddingsongStarted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   React.useEffect(() => {
     if (!videoStarted) return;
@@ -65,13 +66,40 @@ export default function DetailInfo() {
         {!videoStarted && (
           <button
             className="absolute inset-0 z-10 flex items-center justify-center w-full h-full bg-black/70 hover:bg-black/80 transition-colors"
-            onClick={() => setVideoStarted(true)}
+            onClick={async () => {
+              setIsLoading(true);
+              setVideoStarted(true);
+              // Wait for video element to mount
+              setTimeout(async () => {
+                if (videoRef.current) {
+                  try {
+                    // Try to request fullscreen for better mobile UX
+                    if (videoRef.current.requestFullscreen) {
+                      videoRef.current.requestFullscreen();
+                    } else if (videoRef.current.webkitRequestFullscreen) {
+                      videoRef.current.webkitRequestFullscreen();
+                    } else if (videoRef.current.msRequestFullscreen) {
+                      videoRef.current.msRequestFullscreen();
+                    }
+                    await videoRef.current.play();
+                  } catch (err) {
+                    // fallback: show play button again if failed
+                    setVideoStarted(false);
+                  }
+                  setIsLoading(false);
+                }
+              }, 100);
+            }}
             aria-label="Play Video"
           >
-            <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
-              <circle cx="32" cy="32" r="32" fill="#E50913" />
-              <polygon points="26,20 48,32 26,44" fill="white" />
-            </svg>
+            {isLoading ? (
+              <span className="text-white text-lg animate-pulse">Loading...</span>
+            ) : (
+              <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                <circle cx="32" cy="32" r="32" fill="#E50913" />
+                <polygon points="26,20 48,32 26,44" fill="white" />
+              </svg>
+            )}
           </button>
         )}
         <video
@@ -81,6 +109,7 @@ export default function DetailInfo() {
           loop
           playsInline
           style={{ display: videoStarted ? 'block' : 'none' }}
+          onLoadedData={() => setIsLoading(false)}
         >
           <source src={data.url_video} type="video/mp4" />
           Your browser does not support the video tag.

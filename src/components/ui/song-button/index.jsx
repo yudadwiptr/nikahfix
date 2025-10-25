@@ -72,32 +72,48 @@ export default function SongButton() {
       setCanPlay(true);
     }
     window.addEventListener('video-first-ended', handleVideoFirstEnded);
+
+    // Sync isPlaying state with actual audio element (in case user interacts outside button)
+    const audio = audioRef.current;
+    function handleAudioPlay() {
+      setIsPlaying(true);
+    }
+    function handleAudioPause() {
+      setIsPlaying(false);
+    }
+    if (audio) {
+      audio.addEventListener('play', handleAudioPlay);
+      audio.addEventListener('pause', handleAudioPause);
+    }
+
     return () => {
       window.removeEventListener('video-first-ended', handleVideoFirstEnded);
       clearFadeTimer();
+      if (audio) {
+        audio.removeEventListener('play', handleAudioPlay);
+        audio.removeEventListener('pause', handleAudioPause);
+      }
     };
   }, []);
 
   const togglePlay = () => {
     if (!audioRef.current) return;
     if (!canPlay) return; // Block play until sore.mp3 ended
-    if (isPlaying) {
-      // smooth fade-out then pause
-      fadeOut(600, () => {
-        if (!audioRef.current) return;
-        audioRef.current.pause();
-        setIsPlaying(false);
-      });
-    } else {
-      // smooth resume
+    if (!isPlaying) {
+      // Play with fade in
       try { audioRef.current.volume = 0; } catch {}
       audioRef.current
         .play()
         .then(() => {
-          setIsPlaying(true);
           fadeIn(1200);
         })
         .catch(() => {});
+    } else {
+      // Pause with fade out
+      fadeOut(600, () => {
+        if (!audioRef.current) return;
+        audioRef.current.pause();
+      });
     }
   };
 
