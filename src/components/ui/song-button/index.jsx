@@ -3,6 +3,7 @@ import data from '../../../data/config.json';
 
 export default function SongButton() {
   const [isPlaying, setIsPlaying] = React.useState(false);
+  const [canPlay, setCanPlay] = React.useState(false); // Only allow play after sore.mp3 ended
   const audioRef = React.useRef(null);
   const fadeTimerRef = React.useRef(null);
 
@@ -66,79 +67,20 @@ export default function SongButton() {
   // Listen for a global 'guest-click' event dispatched when the Guest button is pressed.
   // When it fires, wait for the netflix intro (if present) to end, then start the main wedding song.
   React.useEffect(() => {
-    function handleGuestClick() {
-      // Ensure netflix sound effect plays before the wedding song.
-      let netflix = document.getElementById('netflix-audio');
-
-      const startMain = () => {
-        if (!audioRef.current) return;
-        // prevent duplicate playback if already playing
-        if (!audioRef.current.src) audioRef.current.src = data.audio_url;
-        audioRef.current.loop = true;
-        audioRef.current.currentTime = 0;
-        // start from volume 0 then fade-in for smooth start
-        try { audioRef.current.volume = 0; } catch {}
-        audioRef.current
-          .play()
-          .then(() => {
-            setIsPlaying(true);
-            fadeIn(1800);
-          })
-          .catch(() => {});
-      };
-
-      const startMainWithDelay = () => setTimeout(startMain, 1000); // 1s delay after netflix ends
-
-      if (!netflix) {
-        // create netflix audio if missing (desktop fallback)
-        netflix = document.createElement('audio');
-        netflix.id = 'netflix-audio';
-        netflix.src = '/audio/netflix.mp3';
-        netflix.preload = 'auto';
-        document.body.appendChild(netflix);
-      }
-
-      try {
-        // restart intro from beginning and play
-        netflix.currentTime = 0;
-        // play may fail if autoplay policy blocks it; swallow errors
-        netflix.play().catch(() => {});
-      } catch (err) {}
-
-      // Prepare weddingsong audio with the user gesture: attempt a quick play and pause so
-      // future .play() calls are allowed by mobile browsers. Only do this if the weddingsong
-      // element exists and isn't already playing.
-      try {
-        if (audioRef.current) {
-          // If it's already playing, no-op
-          if (audioRef.current.paused) {
-            // try a quick play then pause immediately
-            const p = audioRef.current.play();
-            if (p && p.then) {
-              p.then(() => {
-                audioRef.current.pause();
-                audioRef.current.currentTime = 0;
-              }).catch(() => {
-                // ignore
-              });
-            }
-          }
-        }
-      } catch (err) {}
-
-      // When netflix ends, start wedding song after 1 second. Use once:true to avoid duplicates.
-      netflix.addEventListener('ended', startMainWithDelay, { once: true });
+    // Listen for sore.mp3 ended event (custom event from DetailInfo)
+    function handleSoreEnded() {
+      setCanPlay(true);
     }
-
-    window.addEventListener('guest-click', handleGuestClick);
+    window.addEventListener('sore-ended', handleSoreEnded);
     return () => {
-      window.removeEventListener('guest-click', handleGuestClick);
+      window.removeEventListener('sore-ended', handleSoreEnded);
       clearFadeTimer();
     };
   }, []);
 
   const togglePlay = () => {
     if (!audioRef.current) return;
+    if (!canPlay) return; // Block play until sore.mp3 ended
     if (isPlaying) {
       // smooth fade-out then pause
       fadeOut(600, () => {

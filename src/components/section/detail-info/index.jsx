@@ -24,6 +24,8 @@ export default function DetailInfo({ suaravideoRef }) {
         suaravideoRef.current.play().catch(() => {});
         // Listen for sore.mp3 ended, then play weddingsong.mp3
         const handleSoreEnded = () => {
+          // Dispatch custom event so SongButton and global logic can block weddingsong until sore.mp3 is done
+          window.dispatchEvent(new Event('sore-ended'));
           setTimeout(() => {
             const weddingsong = document.getElementById('weddingsong-audio');
             if (weddingsong && weddingsong.paused) {
