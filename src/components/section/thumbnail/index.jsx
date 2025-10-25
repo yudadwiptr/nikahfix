@@ -120,13 +120,7 @@ export default function Thumbnail() {
             </svg>
           </div>
         </div>
-        {/* Hidden suaravideo audio element for synchronized playback */}
-        <audio
-          ref={suaravideoRef}
-          src="/audio/sore.mp3"
-          preload="auto"
-          className="hidden"
-        />
+        {/* suaravideoRef is now only used in DetailInfo for sore.mp3, not here */}
       </div>
     </div>
   );

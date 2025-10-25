@@ -32,10 +32,13 @@ export default function DetailInfo({ suaravideoRef }) {
 
   return (
     <div className="space-y-5 pb-10">
-  <video ref={videoRef} className="w-full" autoPlay playsInline loop>
+      {/* Video and sore.mp3 audio are synchronized */}
+      <video ref={videoRef} className="w-full" autoPlay playsInline loop>
         <source src={data.url_video} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
+      {/* Dedicated hidden audio for sore.mp3, not controlled by SongButton */}
+      <audio ref={suaravideoRef} src="/audio/sore.mp3" preload="auto" className="hidden" />
       <div className="px-4 space-y-4">
         <TitleInfo />
         <Bible />
