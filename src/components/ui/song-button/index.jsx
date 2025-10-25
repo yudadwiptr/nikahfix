@@ -99,20 +99,23 @@ export default function SongButton() {
   const togglePlay = () => {
     if (!audioRef.current) return;
     if (!canPlay) return; // Block play until sore.mp3 ended
+    const audio = audioRef.current;
     if (!isPlaying) {
-      // Play with fade in
-      try { audioRef.current.volume = 0; } catch {}
-      audioRef.current
-        .play()
-        .then(() => {
+      // Play with fade in, but call play() directly in click handler for mobile
+      try { audio.volume = 0; } catch {}
+      const playPromise = audio.play();
+      if (playPromise && typeof playPromise.then === 'function') {
+        playPromise.then(() => {
           fadeIn(1200);
-        })
-        .catch(() => {});
+        }).catch(() => {});
+      } else {
+        fadeIn(1200);
+      }
     } else {
-      // Pause with fade out
+      // Pause with fade out, but call pause() directly in click handler for mobile
       fadeOut(600, () => {
-        if (!audioRef.current) return;
-        audioRef.current.pause();
+        if (!audio) return;
+        audio.pause();
       });
     }
   };
