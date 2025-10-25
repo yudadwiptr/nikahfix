@@ -132,6 +132,8 @@ export default function WishSection() {
 
   useEffect(() => {
     fetchData();
+    const interval = setInterval(fetchData, 10000); // auto-refresh every 10s
+    return () => clearInterval(interval);
   }, []);
 
   return (

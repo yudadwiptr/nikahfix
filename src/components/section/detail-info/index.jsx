@@ -15,7 +15,6 @@ import SongButton from '../../ui/song-button';
 
 export default function DetailInfo() {
   const videoRef = React.useRef(null);
-  const soreAudioRef = React.useRef(null);
   const [firstLoopDone, setFirstLoopDone] = useState(false);
   const [videoStarted, setVideoStarted] = useState(false);
   const [weddingsongStarted, setWeddingsongStarted] = useState(false);
@@ -23,19 +22,10 @@ export default function DetailInfo() {
 
   React.useEffect(() => {
     if (!videoStarted) return;
-    if (!videoRef.current || !soreAudioRef.current) return;
-    // Play sore.mp3 in sync with first video play
-    const handlePlay = () => {
-      soreAudioRef.current.currentTime = 0;
-      soreAudioRef.current.play().catch(() => {});
-    };
-    videoRef.current.addEventListener('play', handlePlay, { once: true });
-
-    // On first video ended, start weddingsong.mp3 and mute sore.mp3
+    if (!videoRef.current) return;
+    // On first video ended, start weddingsong.mp3
     const handleEnded = () => {
       setFirstLoopDone(true);
-      soreAudioRef.current.pause();
-      soreAudioRef.current.currentTime = 0;
       // Dispatch event so SongButton can allow weddingsong.mp3 only after video ends
       window.dispatchEvent(new Event('video-first-ended'));
       setTimeout(() => {
@@ -54,7 +44,6 @@ export default function DetailInfo() {
     videoRef.current.play().catch(() => {});
 
     return () => {
-      videoRef.current.removeEventListener('play', handlePlay);
       videoRef.current.removeEventListener('ended', handleEnded);
     };
   }, [videoStarted, weddingsongStarted]);
@@ -62,60 +51,21 @@ export default function DetailInfo() {
   return (
     <div className="space-y-5 pb-10">
       {/* Video and sore.mp3 audio are synchronized */}
-      <div className="relative w-full aspect-video">
-        {!videoStarted && (
-          <button
-            className="absolute inset-0 z-10 flex items-center justify-center w-full h-full bg-black/70 hover:bg-black/80 transition-colors"
-            onClick={async () => {
-              setIsLoading(true);
-              setVideoStarted(true);
-              // Wait for video element to mount
-              setTimeout(async () => {
-                if (videoRef.current) {
-                  try {
-                    // Try to request fullscreen for better mobile UX
-                    if (videoRef.current.requestFullscreen) {
-                      videoRef.current.requestFullscreen();
-                    } else if (videoRef.current.webkitRequestFullscreen) {
-                      videoRef.current.webkitRequestFullscreen();
-                    } else if (videoRef.current.msRequestFullscreen) {
-                      videoRef.current.msRequestFullscreen();
-                    }
-                    await videoRef.current.play();
-                  } catch (err) {
-                    // fallback: show play button again if failed
-                    setVideoStarted(false);
-                  }
-                  setIsLoading(false);
-                }
-              }, 100);
-            }}
-            aria-label="Play Video"
-          >
-            {isLoading ? (
-              <span className="text-white text-lg animate-pulse">Loading...</span>
-            ) : (
-              <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
-                <circle cx="32" cy="32" r="32" fill="#E50913" />
-                <polygon points="26,20 48,32 26,44" fill="white" />
-              </svg>
-            )}
-          </button>
-        )}
+      <div className="relative w-full" style={{ aspectRatio: '9/16', maxWidth: 400, margin: '0 auto' }}>
         <video
           ref={videoRef}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover rounded-xl shadow-lg"
           muted
           loop
+          autoPlay
           playsInline
-          style={{ display: videoStarted ? 'block' : 'none' }}
+          style={{ display: 'block', background: '#000', borderRadius: '1rem', maxHeight: '90vh', transition: 'filter 0.3s' }}
           onLoadedData={() => setIsLoading(false)}
         >
           <source src={data.url_video} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-        {/* sore.mp3 only plays for first video, then weddingsong.mp3 for subsequent loops */}
-        <audio ref={soreAudioRef} src="/audio/sore.mp3" preload="auto" className="hidden" />
+
       </div>
       <div className="px-4 space-y-4">
         <TitleInfo />
