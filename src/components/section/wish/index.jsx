@@ -47,7 +47,7 @@ export default function WishSection() {
   const [page, setPage] = useState(1);
   const pageSize = 3;
   const totalPages = Math.ceil(data.length / pageSize);
-  const pagedData = data.slice().reverse().slice((page - 1) * pageSize, page * pageSize);
+    const pagedData = data.slice((page - 1) * pageSize, page * pageSize);
   const [name, setName] = useState('');
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
@@ -70,7 +70,7 @@ export default function WishSection() {
     }
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
-  };
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -111,13 +111,18 @@ export default function WishSection() {
     try {
       const { data, error } = await supabase
         .from(import.meta.env.VITE_APP_TABLE_NAME)
-        .select('name, message, color')
-        .order('created_at', { ascending: false });
-
+        .select('id, name, message, color, created_at')
+        .order('created_at', { ascending: true });
       if (error) throw error;
-      setData(data);
+      if (!data || !Array.isArray(data)) {
+        console.error('No wishes data returned from Supabase:', data);
+        setData([]);
+      } else {
+        setData(data);
+      }
     } catch (err) {
       console.error('Error fetching wishes:', err);
+      setData([]);
     }
   };
 
