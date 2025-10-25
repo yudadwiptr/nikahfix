@@ -23,10 +23,13 @@ export default function Bridegroom() {
             <h4 className="text-base text-white font-medium mt-2">
               {data.pegantin.wanita.nama}
             </h4>
-            <p className="text-[#D1D5DB] text-xs leading-4 mt-2">
-              Putri ke-1 dari : <br /> <strong>Bapak</strong> {data.pegantin.wanita.bapak}
-              <br /> <strong>Ibu</strong> {data.pegantin.wanita.ibu}
-            </p>
+            <div className="bg-[#181818] rounded-md px-3 py-2 mt-2 w-full min-h-[70px] flex flex-col justify-center" style={{minWidth: 0}}>
+              <span className="text-xs text-[#D1D5DB] leading-4">
+                Putri ke-1 dari :<br />
+                <strong>Bapak</strong> {data.pegantin.wanita.bapak}<br />
+                <strong>Ibu</strong> {data.pegantin.wanita.ibu}
+              </span>
+            </div>
           </div>
         </div>
         <div>
@@ -42,10 +45,13 @@ export default function Bridegroom() {
             <h4 className="text-base text-white font-medium mt-2">
               {data.pegantin.pria.nama}
             </h4>
-            <p className="text-[#D1D5DB] text-xs leading-4 mt-2">
-              Putra ke-1 dari : <br /> <strong>Bapak</strong> {data.pegantin.pria.bapak}
-              <br /> <strong>Ibu</strong> {data.pegantin.pria.ibu}
-            </p>
+            <div className="bg-[#181818] rounded-md px-3 py-2 mt-2 w-full min-h-[70px] flex flex-col justify-center" style={{minWidth: 0}}>
+              <span className="text-xs text-[#D1D5DB] leading-4">
+                Putra ke-1 dari :<br />
+                <strong>Bapak</strong> {data.pegantin.pria.bapak}<br />
+                <strong>Ibu</strong> {data.pegantin.pria.ibu}
+              </span>
+            </div>
           </div>
         </div>
       </div>
