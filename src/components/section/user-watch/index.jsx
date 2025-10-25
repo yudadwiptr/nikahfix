@@ -14,20 +14,18 @@ export default function UserWatch({ onClick }) {
 
 
   const handleClick = (e) => {
-    // Play Netflix sound only on guest button click (mobile)
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    if (isMobile) {
-      let netflixAudio = document.getElementById('netflix-audio');
-      if (!netflixAudio) {
-        netflixAudio = document.createElement('audio');
-        netflixAudio.id = 'netflix-audio';
-        netflixAudio.src = '/audio/netflix.mp3';
-        netflixAudio.preload = 'auto';
-        document.body.appendChild(netflixAudio);
-      }
-      netflixAudio.currentTime = 0;
-      netflixAudio.play().catch(() => {});
+    // Play Netflix sound on guest button click (all devices)
+    let netflixAudio = document.getElementById('netflix-audio');
+    if (!netflixAudio) {
+      netflixAudio = document.createElement('audio');
+      netflixAudio.id = 'netflix-audio';
+      netflixAudio.src = '/audio/netflix.mp3';
+      netflixAudio.preload = 'auto';
+      document.body.appendChild(netflixAudio);
     }
+    netflixAudio.currentTime = 0;
+    netflixAudio.play().catch(() => {});
+
     // Dispatch a global event so the top-level SongButton can start the main song
     try {
       window.dispatchEvent(new Event('guest-click'));

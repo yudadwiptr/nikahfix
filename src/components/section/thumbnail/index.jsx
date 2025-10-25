@@ -13,30 +13,7 @@ const TagItem = ({ title }) => {
 export default function Thumbnail() {
   const [isOpenDetail, setIsOpenDetail] = React.useState(false);
 
-  useEffect(() => {
-    const scrollThreshold = 1; // minimum scroll distance in pixels
-
-    const handleScroll = () => {
-      if (window.scrollY > scrollThreshold) {
-        setIsOpenDetail(true);
-      }
-    };
-
-    const handleTouchMove = (event) => {
-      const touch = event.touches[0];
-      if (touch && touch.clientY < -scrollThreshold) {
-        setIsOpenDetail(true);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('touchmove', handleTouchMove, { passive: true });
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('touchmove', handleTouchMove);
-    };
-  }, []);
+  // Remove auto-open on scroll/touch. Only open detail on button click.
 
   // suaravideo audio ref for synchronized playback
   const suaravideoRef = React.useRef(null);

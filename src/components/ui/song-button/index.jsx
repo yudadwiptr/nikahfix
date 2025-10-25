@@ -3,7 +3,7 @@ import data from '../../../data/config.json';
 
 export default function SongButton() {
   const [isPlaying, setIsPlaying] = React.useState(false);
-  const [canPlay, setCanPlay] = React.useState(false); // Only allow play after sore.mp3 ended
+  const [canPlay, setCanPlay] = React.useState(false); // Only allow play after video first play ended
   const audioRef = React.useRef(null);
   const fadeTimerRef = React.useRef(null);
 
@@ -67,13 +67,13 @@ export default function SongButton() {
   // Listen for a global 'guest-click' event dispatched when the Guest button is pressed.
   // When it fires, wait for the netflix intro (if present) to end, then start the main wedding song.
   React.useEffect(() => {
-    // Listen for sore.mp3 ended event (custom event from DetailInfo)
-    function handleSoreEnded() {
+    // Listen for custom event from DetailInfo when video first play ends
+    function handleVideoFirstEnded() {
       setCanPlay(true);
     }
-    window.addEventListener('sore-ended', handleSoreEnded);
+    window.addEventListener('video-first-ended', handleVideoFirstEnded);
     return () => {
-      window.removeEventListener('sore-ended', handleSoreEnded);
+      window.removeEventListener('video-first-ended', handleVideoFirstEnded);
       clearFadeTimer();
     };
   }, []);
