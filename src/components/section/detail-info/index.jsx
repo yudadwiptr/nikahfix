@@ -17,43 +17,28 @@ export default function DetailInfo({ suaravideoRef }) {
   const videoRef = React.useRef(null);
   React.useEffect(() => {
     if (!videoRef.current) return;
-    // Play sore.mp3 only when video starts (user has clicked 'See the detail')
-    const handlePlay = () => {
-      if (suaravideoRef && suaravideoRef.current) {
-        suaravideoRef.current.currentTime = 0;
-        suaravideoRef.current.play().catch(() => {});
-        // Listen for sore.mp3 ended, then play weddingsong.mp3
-        const handleSoreEnded = () => {
-          // Dispatch custom event so SongButton and global logic can block weddingsong until sore.mp3 is done
-          window.dispatchEvent(new Event('sore-ended'));
-          setTimeout(() => {
-            const weddingsong = document.getElementById('weddingsong-audio');
-            if (weddingsong && weddingsong.paused) {
-              weddingsong.play().catch(() => {});
-            }
-          }, 1000); // 1 detik jeda setelah sore.mp3 selesai
-        };
-        suaravideoRef.current.addEventListener('ended', handleSoreEnded, { once: true });
-      }
+    // When video finishes first playthrough, start weddingsong.mp3
+    const handleVideoEnded = () => {
+      setTimeout(() => {
+        const weddingsong = document.getElementById('weddingsong-audio');
+        if (weddingsong && weddingsong.paused) {
+          weddingsong.play().catch(() => {});
+        }
+      }, 1000); // 1 detik jeda setelah video selesai
     };
-    videoRef.current.addEventListener('play', handlePlay, { once: true });
+    videoRef.current.addEventListener('ended', handleVideoEnded, { once: true });
     return () => {
-      videoRef.current.removeEventListener('play', handlePlay);
-      if (suaravideoRef && suaravideoRef.current) {
-        suaravideoRef.current.removeEventListener('ended', handleSoreEnded);
-      }
+      videoRef.current.removeEventListener('ended', handleVideoEnded);
     };
-  }, [suaravideoRef]);
+  }, []);
 
   return (
     <div className="space-y-5 pb-10">
       {/* Video and sore.mp3 audio are synchronized */}
-  <video ref={videoRef} className="w-full" autoPlay playsInline loop muted>
+      <video ref={videoRef} className="w-full" autoPlay playsInline muted>
         <source src={data.url_video} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
-      {/* Dedicated hidden audio for sore.mp3, not controlled by SongButton */}
-  <audio ref={suaravideoRef} src="/audio/sore.mp3" preload="auto" className="hidden" />
       <div className="px-4 space-y-4">
         <TitleInfo />
         <Bible />
