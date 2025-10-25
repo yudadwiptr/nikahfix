@@ -13,31 +13,21 @@ import Footer from '../footer';
 import data from '../../../data/config.json';
 import SongButton from '../../ui/song-button';
 
-export default function DetailInfo({ suaravideoRef, suaravideoStarted }) {
+export default function DetailInfo({ suaravideoRef }) {
   const videoRef = React.useRef(null);
   React.useEffect(() => {
-    if (videoRef.current) {
-      try {
-        videoRef.current.muted = false;
-        videoRef.current.defaultMuted = false;
-        videoRef.current.volume = 0;
-      } catch {}
-      // Attach event to play suaravideo when video starts
-      const handlePlay = () => {
-        if (suaravideoRef && suaravideoRef.current) {
-          suaravideoRef.current.currentTime = 0;
-          suaravideoRef.current.play().catch(() => {});
-        }
-      };
-      videoRef.current.addEventListener('play', handlePlay, { once: true });
-      // Fallback: if video is already playing on mount, play suaravideo immediately
-      if (!videoRef.current.paused) {
-        handlePlay();
+    if (!videoRef.current) return;
+    // Play sore.mp3 only when video starts (user has clicked 'See the detail')
+    const handlePlay = () => {
+      if (suaravideoRef && suaravideoRef.current) {
+        suaravideoRef.current.currentTime = 0;
+        suaravideoRef.current.play().catch(() => {});
       }
-      return () => {
-        videoRef.current.removeEventListener('play', handlePlay);
-      };
-    }
+    };
+    videoRef.current.addEventListener('play', handlePlay, { once: true });
+    return () => {
+      videoRef.current.removeEventListener('play', handlePlay);
+    };
   }, [suaravideoRef]);
 
   return (
