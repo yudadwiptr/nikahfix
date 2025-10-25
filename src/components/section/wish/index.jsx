@@ -88,11 +88,8 @@ export default function WishSection() {
 
       if (supabaseError) throw supabaseError;
 
-      // Tambahkan wish baru ke state tanpa reload manual
-      setData(prev => [
-        { name, message: newmessage, color: randomColor },
-        ...prev
-      ]);
+      // Setelah submit, fetch data terbaru dari Supabase
+      await fetchData();
       setTimeout(scrollToLastChild, 500);
       setName('');
       setMessage('');
