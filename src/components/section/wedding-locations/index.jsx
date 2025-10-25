@@ -1,7 +1,8 @@
 import React from 'react';
 import data from '../../../data/config.json';
+import MiniCountdown from './MiniCountdown';
 
-const LocationCard = ({ title, place, time, mapsUrl }) => {
+const LocationCard = ({ title, place, time, mapsUrl, showCountdown }) => {
   const handleClick = (e) => {
     e.preventDefault();
     window.open(mapsUrl, '_blank', 'noopener,noreferrer');
@@ -25,6 +26,9 @@ const LocationCard = ({ title, place, time, mapsUrl }) => {
         <div className="space-y-2 text-[#A3A1A1]">
           <p className="text-sm">{place}</p>
           <p className="text-sm">Time: {timeOnly} WIB</p>
+          {showCountdown && (
+            <MiniCountdown targetDate={new Date('2025-11-01T10:00:00+07:00')} />
+          )}
           <button
             onClick={handleClick}
             className="inline-flex items-center gap-2 bg-[#E50913] text-white px-4 py-2 rounded mt-2 hover:bg-[#cc0812] transition-all duration-300 transform hover:scale-105 active:scale-95 group w-full sm:w-auto justify-center"
@@ -72,6 +76,7 @@ export default function WeddingLocations() {
                 place={location.place}
                 time={location.time}
                 mapsUrl={location.mapsUrl}
+                showCountdown={true}
               />
             ))}
           </div>

@@ -86,6 +86,23 @@ export default function SongButton() {
       audio.addEventListener('pause', handleAudioPause);
     }
 
+    // 25s timer to auto-play weddingsong.mp3 if not already playing
+    let timer = null;
+    function startAutoPlayTimer() {
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(() => {
+        if (canPlay && audio && audio.paused) {
+          audio.volume = 0;
+          audio.play().then(() => fadeIn(1200)).catch(() => {});
+        }
+      }, 25000);
+    }
+    // Start timer when canPlay becomes true
+    if (canPlay) {
+      startAutoPlayTimer();
+    }
+
+    // Clear timer if user leaves page or unmounts
     return () => {
       window.removeEventListener('video-first-ended', handleVideoFirstEnded);
       clearFadeTimer();
@@ -93,8 +110,10 @@ export default function SongButton() {
         audio.removeEventListener('play', handleAudioPlay);
         audio.removeEventListener('pause', handleAudioPause);
       }
+      if (timer) clearTimeout(timer);
     };
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [canPlay]);
 
   const togglePlay = () => {
     if (!audioRef.current) return;
